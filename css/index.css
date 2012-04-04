@@ -1,4 +1,10 @@
-html {
+body {
 	font-family:Arial;
+	color: grey;
+	background-color: black;
 }
 
+#trollface {
+	width:200px;
+	height:150px;
+}
