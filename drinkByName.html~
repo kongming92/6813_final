@@ -10,15 +10,19 @@
 		<script type="text/javascript" src="./js/index.js" ></script>
 	</head>
 	<body>
-	<div data-role="page" id="homePage">
+	<div data-role="page" id="namePage">
+
+		<div data-role="header">
+			<h1>Drink By Name</h1>
+		</div>
 
 		<div data-role="content">
-			<h1>fat charles</h1>
-			<div data-role="controlgroup"><a href="./drinkByName.html" data-role="button" data-corners="false">Find Drink By Name</a></div>
-			<div data-role="controlgroup"><a href="./drinkByIngredients.html" data-role="button">Find Drink By Ingredients</a></div>
-			<a href="/submit.html" data-role="button">Submit a Drink</a>
-		</div><!-- /content -->
+			<h1>Drink By Name</h1>
+			<input type="text"></input>
+		</div>
 
-	</div><!-- /page -->
+		<div data-role="footer">
+		</div>
+	</div>
 	</body>
 </html>

@@ -1,13 +1,24 @@
 <!doctype html>
 <html>
 	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1"> 
+
+		<link rel="stylesheet" type="text/css" href="./css/jquery.mobile-1.1.0.css" />
 		<link rel="stylesheet" type="text/css" href="./css/index.css" />
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-		<script type="text/javascript" src="./js/magic.js" ></script>
+		<script type="text/javascript" src="./js/jquery.mobile-1.1.0.js"></script>
+		<script type="text/javascript" src="./js/index.js" ></script>
 	</head>
 	<body>
-		<img id="trollface" src="img/trollface.png"/>
-		<h1 style="display:inline-block">FAT CHARLES</h1>
-		<h2>KENNY'S GIANT POOP</h2>
+	<div data-role="page" id="homePage">
+
+		<div data-role="content">
+			<h1>fat charles</h1>
+			<div data-role="controlgroup"><a href="drinkByName.html" data-role="button" data-corners="false">Find Drink By Name</a></div>
+			<div data-role="controlgroup"><a href="./drinkByIngredients.html" data-role="button">Find Drink By Ingredients</a></div>
+			<a href="/submit.html" data-role="button">Submit a Drink</a>
+		</div><!-- /content -->
+
+	</div><!-- /page -->
 	</body>
 </html>
