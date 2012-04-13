@@ -1,11 +1,10 @@
 body {
 	font-family:Arial;
-	color: grey;
-	background-color: black;
 }
 
-#trollface {
+#homePage {
+	text-align:center;
+}
 
-	width:200px;
-	height:150px;
+#namePage {
 }
