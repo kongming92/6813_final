@@ -9,3 +9,11 @@ body {
 #namePage {
 	text-align:center;
 }
+
+#ingredientsPage {
+	text-align:center;
+}
+
+#ingredientsPage .ui-grid-b div {
+	
+}
