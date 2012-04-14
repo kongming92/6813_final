@@ -5,9 +5,12 @@ $(document).on('pageinit', '#homePage', function() {//can add a selector
 });
 
 $(document).on('pageinit', '#namePage', function() {
-	setTimeout("$('input:first').focus()", 100);
 	$('input[type="submit"]').click(function() {
 		alert($('input[type=""]'));
 	});
 });
-
+/*
+$(document).on('pageshow', '#namePage', function() {
+	console.log('page shown');
+	$('input[type="text"]').focus();
+});*/
