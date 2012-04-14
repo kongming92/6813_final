@@ -1,5 +1,5 @@
-/* Fat Charles 6.813 Magic JS File
+/* Fat Charles 6.813 JS File
 */
-$(document).on('pageinit', function() {//can add a selector
-	alert('hi');
+$(document).on('pageinit', '#homePage',function() {//can add a selector
+	$('div [data-role="controlgroup"]').addClass('ui-shadow');
 });
