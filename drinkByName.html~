@@ -18,7 +18,11 @@
 
 		<div data-role="content">
 			<h1>Drink By Name</h1>
-			<input type="text"></input>
+			<form action="zbt.mit.edu" method="post">
+			<div data-role="fieldcontain">
+				<input datatype="text" name="drinkName" placeholder="Name of Drink"></input><input type="submit" data-inline="true" value="Submit"></input>
+			</div>
+			</form>
 		</div>
 
 		<div data-role="footer">
