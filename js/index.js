@@ -98,7 +98,7 @@ $(document).on('pageinit', '#drinkPage', function() {
 });
 
 $(document).on('pageinit', '#commentForm', function() { 
-	$("#submitCommentButton").tap(function() {
+	$("#submitCommentButton").on('vclick', function() {
 		var drinkId = $("#commentForm").data("drinkid");
 		var addCommentURL = "addComment.php";
 		$.post(
@@ -118,4 +118,8 @@ $(document).on('pageinit', '#bin', function() {
 	});
 });
 			
-
+$(document).on('pageinit', '#beer, #juice, #liquor, #soda, #wine, #misc', function() {
+	$('label').on('vclick', function(e){
+		var key = $(this).text();
+	});
+});
