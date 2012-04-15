@@ -6,7 +6,13 @@ $(document).on('pageinit', '#homePage', function() {//can add a selector
 });
 
 $(document).on('pageinit', '#namePage', function() {
-	$("#searchButton").tap(function() {
+	$('#drinkName').keypress(function (e) {
+		var code = (e.keyCode? e.keyCode: e.which);
+		if (code==13) {
+			$('#searchButton').triggerHandler('vclick');
+		}
+	});
+	$("#searchButton").on('vclick', function() {
 		$("#resultsList").empty();
 		var searchString = $("#drinkName").val();
 		var searchURL = "php/searchByName.php";
