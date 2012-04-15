@@ -16,14 +16,13 @@
 		</div>
 
 		<div data-role="content">
-			<h1>Find Drink by Ingredients</h1>
-			<ul>
-				<li><a href="#beer" data-role="button">Beer</a></li>
-				<li><a href="#juice" data-role="button">Juice</a></li>
-				<li><a href="#liquor" data-role="button">Liquor</a></li>
-				<li><a href="#soda" data-role="button">Soda</a></li>
-				<li><a href="#wine" data-role="button">Wine</a></li>
-				<li><a href="#misc" data-role="button">Misc.</a></li>
+			<ul data-role="listview">
+				<li><a href="#beer">Beer</a></li>
+				<li><a href="#juice">Juice</a></li>
+				<li><a href="#liquor">Liquor</a></li>
+				<li><a href="#soda">Soda</a></li>
+				<li><a href="#wine">Wine</a></li>
+				<li><a href="#misc">Other Ingredients</a></li>
 			</ul>
 		</div><!-- /content -->
 
@@ -36,14 +35,22 @@
 		</div>
 
 		<div data-role="content">
-			 <ul data-role="listview">
-                                <li id="beer1" data-role="button">Beer1</li>
-                                <li><span id="beer2" data-role="button">beer2</span></li>
-                                <li><span id="beer3" data-role="button">beer3</span></li>
-                                <li><span id="beer4" data-role="button">beer4</span></li>
-                                <li><span id="beer5" data-role="button">beer5</span></li>
-                                <li><span id="beer6" data-role="button">beer6</span></li>
-                        </ul>
+			<div data-role="fieldcontain">
+			 		<fieldset data-role="controlgroup">
+			 			<input type="checkbox" id="beer1" data-corners="false" />
+			 			<label for="beer1">Beer 1</label>
+			 			<input type="checkbox" id="beer2" data-corners="false" />
+			 			<label for="beer2">Beer 2</label>
+			 			<input type="checkbox" id="beer3" data-corners="false" />
+			 			<label for="beer3">Beer 3</label>
+			 			<input type="checkbox" id="beer4" data-corners="false" />
+			 			<label for="beer4">Beer 4</label>
+			 			<input type="checkbox" id="beer5" data-corners="false" />
+			 			<label for="beer5">Beer 5</label>
+			 			<input type="checkbox" id="beer6" data-corners="false" />
+			 			<label for="beer6">Beer 6</label>
+			 		</fieldset>
+			 </div>
 		</div><!-- /content -->
 	</div><!-- /Beer page -->
 	
@@ -54,15 +61,21 @@
                 </div>
 
                 <div data-role="content">
-                         <ul>
-                                <li><a href="#" data-role="button">juice1</a></li>
-                                <li><a href="#" data-role="button">Juice2</a></li>
-                                <li><a href="#" data-role="button">juice3</a></li>
-                                <li><a href="#" data-role="button">juice4</a></li>
-                                <li><a href="#" data-role="button">juice5</a></li>
-                                <li><a href="#" data-role="button">juice6</a></li>
-                        </ul>
-                </div><!-- /content -->
+                    <div data-role="fieldcontain">
+						<fieldset data-role="controlgroup">
+							<input type="checkbox" id="juice1" data-corners="false" />
+							<label for="juice1">Orange Juice</label>
+							<input type="checkbox" id="juice2" data-corners="false" />
+							<label for="juice2">Cranberry Juice</label>
+							<input type="checkbox" id="juice3" data-corners="false" />
+							<label for="juice3">Apple Juice</label>
+							<input type="checkbox" id="juice4" data-corners="false" />
+							<label for="juice4">Pineapple Juice</label>
+							<input type="checkbox" id="juice5" data-corners="false" />
+							<label for="juice5">Mango Juice</label>
+						</fieldset>
+			 		</div>
+            </div><!-- /content -->
         </div><!-- /Juice page -->
 	
 	<!-- Start of Liquor page: #liquor -->
@@ -72,14 +85,20 @@
                 </div>
 
                 <div data-role="content">
-                         <ul>
-                                <li><a href="#" data-role="button">liquor1</a></li>
-                                <li><a href="#" data-role="button">liquor2</a></li>
-                                <li><a href="#" data-role="button">liquor3</a></li>
-                                <li><a href="#" data-role="button">liquor4</a></li>
-                                <li><a href="#" data-role="button">liquor5</a></li>
-                                <li><a href="#" data-role="button">liquor6</a></li>
-                        </ul>
+                    <div data-role="fieldcontain">
+						<fieldset data-role="controlgroup">
+							<input type="checkbox" id="liquor1" data-corners="false" />
+							<label for="liquor1">Vodka</label>
+							<input type="checkbox" id="liquor2" data-corners="false" />
+							<label for="liquor2">Rum</label>
+							<input type="checkbox" id="liquor3" data-corners="false" />
+							<label for="liquor3">Gin</label>
+							<input type="checkbox" id="liquor4" data-corners="false" />
+							<label for="liquor4">Tequila</label>
+							<input type="checkbox" id="liquor5" data-corners="false" />
+							<label for="liquor5">Whiskey</label>
+						</fieldset>
+			 		</div>
                 </div><!-- /content -->
         </div><!-- /Liquor page -->
 
@@ -90,14 +109,24 @@
                 </div>
 
                 <div data-role="content">
-                         <ul>
-                                <li><a href="#" data-role="button">Soda1</a></li>
-                                <li><a href="#" data-role="button">Soda2</a></li>
-                                <li><a href="#" data-role="button">Soda3</a></li>
-                                <li><a href="#" data-role="button">Soda4</a></li>
-                                <li><a href="#" data-role="button">Soda5</a></li>
-                                <li><a href="#" data-role="button">Soda6</a></li>
-                        </ul>
+                    <div data-role="fieldcontain">
+						<fieldset data-role="controlgroup">
+							<input type="checkbox" id="soda1" data-corners="false" />
+							<label for="soda1">Cola</label>
+							<input type="checkbox" id="soda2" data-corners="false" />
+							<label for="soda2">Lemon-lime</label>
+							<input type="checkbox" id="soda3" data-corners="false" />
+							<label for="soda3">Ginger Ale</label>
+							<input type="checkbox" id="soda4" data-corners="false" />
+							<label for="soda4">Tonic Water</label>
+							<input type="checkbox" id="soda5" data-corners="false" />
+							<label for="soda5">Grape Soda</label>
+							<input type="checkbox" id="soda6" data-corners="false" />
+							<label for="soda6">Orange Soda</label>
+							<input type="checkbox" id="soda7" data-corners="false" />
+							<label for="soda7">Dr. Pepper</label>
+						</fieldset>
+			 		</div>
                 </div><!-- /content -->
         </div><!-- /Soda page -->
 
@@ -108,14 +137,15 @@
                 </div>
 
                 <div data-role="content">
-                         <ul>
-                                <li><a href="#" data-role="button">wine1</a></li>
-                                <li><a href="#" data-role="button">wine2</a></li>
-                                <li><a href="#" data-role="button">wine3</a></li>
-                                <li><a href="#" data-role="button">wine4</a></li>
-                                <li><a href="#" data-role="button">wine5</a></li>
-                                <li><a href="#" data-role="button">wine6</a></li>
-                        </ul>
+                    <div data-role="fieldcontain">
+						<fieldset data-role="controlgroup">
+							<input type="checkbox" id="wine1" data-corners="false" />
+							<label for="wine1">Red Wine</label>
+							<input type="checkbox" id="wine2" data-corners="false" />
+							<label for="wine2">White Wine</label>
+							
+						</fieldset>
+			 		</div>
                 </div><!-- /content -->
         </div><!-- /Wine page -->
 
@@ -126,14 +156,12 @@
                 </div>
 
                 <div data-role="content">
-                         <ul>
-                                <li><a href="#" data-role="button">misc1</a></li>
-                                <li><a href="#" data-role="button">misc2</a></li>
-                                <li><a href="#" data-role="button">misc3</a></li>
-                                <li><a href="#" data-role="button">misc4</a></li>
-                                <li><a href="#" data-role="button">misc5</a></li>
-                                <li><a href="#" data-role="button">misc6</a></li>
-                        </ul>
+                    <div data-role="fieldcontain">
+						<fieldset data-role="controlgroup">
+							<input type="checkbox" id="misc1" data-corners="false" />
+							<label for="misc1">Grenadine Syrup</label>
+						</fieldset>
+			 		</div>
                 </div><!-- /content -->
         </div><!-- /Misc page -->
 
