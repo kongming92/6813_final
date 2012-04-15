@@ -1,6 +1,16 @@
 <?php
 	session_start();
+	
 	$drinkid = $_GET["id"];
+	
+	//$_SESSION['recent'] = array(3,2);
+	if(isset($_SESSION['recent'])){
+		$_SESSION['recent'][] = $drinkid;
+	}
+	else{
+		$_SESSION['recent'] = array($drinkid);
+	}
+		
 	$name = array(1 => "MartiniX", "Cranberry Delight", "Fat Charles Special");
 	$ingredients = array("3 shots vodka", "4 oz. cranberry juice", "1 oz. pineapple juice");
 	$instructions = "Pour the vodka over ice in a cup, followed by cranberry juice. Add pineapple juice slowly, to taste.";
