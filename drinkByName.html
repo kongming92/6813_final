@@ -8,6 +8,7 @@
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script type="text/javascript" src="./js/jquery.mobile-1.1.0.js"></script>
 		<script type="text/javascript" src="./js/index.js" ></script>
+
 	</head>
 	<body>
 	<div data-role="page" id="namePage">
@@ -17,12 +18,13 @@
 		</div>
 
 		<div data-role="content">
-			<h1>Drink By Name</h1>
-			<form action="somepage.php" method="post">
-			<div data-role="fieldcontain">
-				<input type="text" name="drinkName" placeholder="Name of Drink"></input><input type="submit" data-inline="true" value="Submit"></input>
+			<div data-role="fieldcontain" id="search" class="searchClass">
+				<input type="text" id="drinkName" placeholder="Name of Drink" />
+				<input type="button" id="searchButton" data-icon="search" data-inline="true" value="Submit" />
 			</div>
-			</form>
+			<div data-role="fieldcontain" id="results" class="searchClass">
+				<ul data-role="listview" id="resultsList"></ul>
+			</div>
 		</div>
 
 		<div data-role="footer">

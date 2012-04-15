@@ -5,8 +5,29 @@ $(document).on('pageinit', '#homePage', function() {//can add a selector
 });
 
 $(document).on('pageinit', '#namePage', function() {
-	$('input[type="submit"]').click(function() {
-		alert($('input[type=""]'));
+	$("#resultsList").empty();
+	$("#drinkName").empty();
+	$("#searchButton").tap(function() {
+		$("#resultsList").empty();
+		var searchString = $("#drinkName").val();
+		var searchURL = "php/searchByName.php";
+		console.log(searchString);
+		if ($.trim(searchString) == "") {
+			return;
+		}
+		$.post(
+			searchURL,
+			{ param : searchString },
+			function(data) {
+				$.each(data, function(key, value) {
+					var itemStr = "<li><a href=drinks.php?id=" + key + ">" + value + "</a></li>";
+					console.log(itemStr);
+					$("#resultsList").append(itemStr);						
+				});
+				$("#resultsList").listview("refresh");
+			},
+			"json"
+		);
 	});
 });
 /*
@@ -14,3 +35,8 @@ $(document).on('pageshow', '#namePage', function() {
 	console.log('page shown');
 	$('input[type="text"]').focus();
 });*/
+
+
+$("#drinkByNamePage").on("pageinit", function() {
+
+});
