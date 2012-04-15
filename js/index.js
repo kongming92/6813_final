@@ -61,14 +61,32 @@ $(document).on('pageinit', '#drinkPage', function() {
 		}
 	});
 	
+	var isVoteUp = false;
+	var isVoteDown = false;
+	
 	$("#voteUpButton").tap(function() {
-		var current = $("#drinkRating").text().parseInt;
-		$("#drinkRating").text(String(current+1));
+		var current = parseInt($("#drinkRating").text());
+		if (isVoteDown) {
+			$("#drinkRating").text(String(current+2));
+		} else{
+			$("#drinkRating").text(String(current+1));
+		}
+		$("#voteUpButton").button("disable");
+		$("#voteDownButton").button("enable");
+		isVoteUp = true;
+		isVoteDown = false;
 	});
 	
 	$("#voteDownButton").tap(function() {
-		var current = $("#drinkRating").text().parseInt;
-		$("#drinkRating").text(String(current-1));
+		var current = parseInt($("#drinkRating").text());
+		if (isVoteUp) {
+			$("#drinkRating").text(String(current-2));
+		} else{
+			$("#drinkRating").text(String(current-1));
+		}		$("#voteDownButton").button("disable");
+		$("#voteUpButton").button("enable");
+		isVoteDown = true;
+		isVoteUp = false;
 	});
 		
 });
