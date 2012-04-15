@@ -1,4 +1,13 @@
-<!doctype html>
+<?php
+
+session_start();
+$id_array = $_SESSION['recent'];
+$id_array = array_unique(array_reverse($id_array));
+
+$name = array(1 => "MartiniX", "Cranberry Delight", "Fat Charles Special");
+$ratings = array(1 => "+34", "+17", "-3");
+?>	
+
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1"> 
@@ -13,15 +22,22 @@
 	<body>
 	<div data-role="page" id="homePage">
 		<div data-role="header">
-			<h1></h1>
+			<h1>Recently Viewed Drinks</h1>
 		</div>
 
 		<div data-role="content">
-			<h1>fat charles</h1>
-			<div data-role="controlgroup"><a href="drinkByName.html" data-role="button" data-corners="false">Find Drink By Name</a></div>
-			<div data-role="controlgroup"><a href="drinkByIngredients.html" data-role="button">Find Drink By Ingredients</a></div>
-			<div data-role="controlgroup"><a href="recent.html" data-role="button">Recently Viewed Drinks</a></div>
-			<div data-role="controlgroup"><a href="submit.html" data-role="button">Submit a Drink</a></div>
+		<ul data-role="listview" data-inset="true" id="resultsList">
+
+<?php
+
+foreach($id_array as $id){
+	$drink = $name[$id];
+	$rating = $ratings[$id];
+	echo "<li><a href='drink.php?id=$id' >$drink<span class='ui-li-count'>$rating</span></a></li>";
+}
+?>
+
+		</ul>
 		</div><!-- /content -->
 
 	</div><!-- /page -->
