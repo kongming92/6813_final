@@ -7,7 +7,7 @@ $id_array = array_unique(array_reverse($id_array));
 $name = array(1 => "MartiniX", "Cranberry Delight", "Fat Charles Special");
 $ratings = array(1 => "+34", "+17", "-3");
 ?>	
-
+<!doctype html>
 <html>
 	<head>
 		<meta name="viewport" content="width=device-width, initial-scale=1"> 
