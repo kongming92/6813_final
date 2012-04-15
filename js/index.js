@@ -48,7 +48,7 @@ $(document).on('pageinit', '#drinkPage', function() {
 					if (data.length > 0) {
 						$.each(data, function(key, value) {
 							var obj = $.parseJSON(value);
-							var commentStr = "<p>" + obj.user + "(" + obj.time + ")" + ": " + obj.comment + "</p>";
+							var commentStr = "<p>" + obj.user + " (" + obj.time + ")" + ": " + obj.comment + "</p>";
 							$("#commentDiv").append(commentStr);
 						});
 					} else {
@@ -60,6 +60,35 @@ $(document).on('pageinit', '#drinkPage', function() {
 			isShowingComments = true;
 		}
 	});
+	
+	var isVoteUp = false;
+	var isVoteDown = false;
+	
+	$("#voteUpButton").tap(function() {
+		var current = parseInt($("#drinkRating").text());
+		if (isVoteDown) {
+			$("#drinkRating").text(String(current+2));
+		} else{
+			$("#drinkRating").text(String(current+1));
+		}
+		$("#voteUpButton").button("disable");
+		$("#voteDownButton").button("enable");
+		isVoteUp = true;
+		isVoteDown = false;
+	});
+	
+	$("#voteDownButton").tap(function() {
+		var current = parseInt($("#drinkRating").text());
+		if (isVoteUp) {
+			$("#drinkRating").text(String(current-2));
+		} else{
+			$("#drinkRating").text(String(current-1));
+		}		$("#voteDownButton").button("disable");
+		$("#voteUpButton").button("enable");
+		isVoteDown = true;
+		isVoteUp = false;
+	});
+		
 });
 
 $(document).on('pageinit', '#commentForm', function() { 

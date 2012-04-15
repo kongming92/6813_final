@@ -14,10 +14,20 @@ body {
 	text-align:center;
 }
 
-#ingredientsPage .ui-grid-b div {
-	
-}
-
 #commentForm {
 	text-align: center;
 }
+
+#drinkPage #ratings {
+	text-align: center;
+	display: inline-block;
+	width: 35px;
+}
+
+#drinkPage #ingredients {
+	display: inline-block;
+	position: relative;
+	left: 10px;
+	top: -10px;
+}
+

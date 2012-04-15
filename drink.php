@@ -12,6 +12,7 @@
 	}
 		
 	$name = array(1 => "MartiniX", "Cranberry Delight", "Fat Charles Special");
+	$ratings = array(1=> 34, 17, -3);
 	$ingredients = array("3 shots vodka", "4 oz. cranberry juice", "1 oz. pineapple juice");
 	$instructions = "Pour the vodka over ice in a cup, followed by cranberry juice. Add pineapple juice slowly, to taste.";
 	
@@ -41,16 +42,23 @@
 		</div>
 
 		<div data-role="content">
-		
-			<div id="ingredients">
-				<h3>Ingredients</h3>
-				<ul>
-				<?php
-					foreach ($ingredients as $i) {
-						echo "<li>" . $i . "</li>";
-					}
-				?>
-				</ul>
+			<div id="topDiv">
+				<div id="ratings">
+					<input type="button" id="voteUpButton" data-icon="arrow-u" data-iconpos="notext" />
+					<h4 id="drinkRating"><?php echo $ratings[$drinkid] ?></h4>
+					<input type="button" id="voteDownButton" data-icon="arrow-d" data-iconpos="notext" />
+				</div>
+				
+				<div id="ingredients">
+					<h3>Ingredients</h3>
+					<ul>
+					<?php
+						foreach ($ingredients as $i) {
+							echo "<li>" . $i . "</li>";
+						}
+					?>
+					</ul>
+				</div>
 			</div>
 			<div id="instructions">
 				<h3>Instructions</h3>
