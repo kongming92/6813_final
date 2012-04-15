@@ -2,6 +2,7 @@
 	session_start();
 	$drinkid = $_GET["id"];
 	$name = array(1 => "MartiniX", "Cranberry Delight", "Fat Charles Special");
+	$ratings = array(1=> 34, 17, -3);
 	$ingredients = array("3 shots vodka", "4 oz. cranberry juice", "1 oz. pineapple juice");
 	$instructions = "Pour the vodka over ice in a cup, followed by cranberry juice. Add pineapple juice slowly, to taste.";
 	
@@ -42,6 +43,11 @@
 				?>
 				</ul>
 			</div>
+			<div id="ratings">
+				<input type="button" id="voteUpButton" data-icon="arrow-u" data-iconpos="notext" />
+				<h4 id="drinkRating"><?php echo $ratings[$drinkid] ?></h4>
+				<input type="button" id="voteDownButton" data-icon="arrow-d" data-iconpos="notext" />
+
 			<div id="instructions">
 				<h3>Instructions</h3>
 				<p><?php echo $instructions; ?></p>
