@@ -11,7 +11,7 @@ body {
 }
 
 #ingredientsPage {
-	text-align:center;
+   text-align:center;
 }
 
 #commentForm {
@@ -31,3 +31,12 @@ body {
 	top: -10px;
 }
 
+#bin #binList li {
+	font-size: 100%;
+}
+
+#bin .binRemove {
+	position: absolute;
+	right: 10px;
+	top: 2px;
+}

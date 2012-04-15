@@ -110,5 +110,12 @@ $(document).on('pageinit', '#commentForm', function() {
 		);
 	});
 });
+
+$(document).on('pageinit', '#bin', function() {
+	$(".binRemoveButton").tap(function() {
+		$(this).closest("li").remove();
+		// MODIFICATIONS TO LOCAL STORAGE AND DOM
+	});
+});
 			
 
