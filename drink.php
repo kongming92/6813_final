@@ -42,22 +42,24 @@
 		</div>
 
 		<div data-role="content">
-		
-			<div id="ingredients">
-				<h3>Ingredients</h3>
-				<ul>
-				<?php
-					foreach ($ingredients as $i) {
-						echo "<li>" . $i . "</li>";
-					}
-				?>
-				</ul>
+			<div id="topDiv">
+				<div id="ratings">
+					<input type="button" id="voteUpButton" data-icon="arrow-u" data-iconpos="notext" />
+					<h4 id="drinkRating"><?php echo $ratings[$drinkid] ?></h4>
+					<input type="button" id="voteDownButton" data-icon="arrow-d" data-iconpos="notext" />
+				</div>
+				
+				<div id="ingredients">
+					<h3>Ingredients</h3>
+					<ul>
+					<?php
+						foreach ($ingredients as $i) {
+							echo "<li>" . $i . "</li>";
+						}
+					?>
+					</ul>
+				</div>
 			</div>
-			<div id="ratings">
-				<input type="button" id="voteUpButton" data-icon="arrow-u" data-iconpos="notext" />
-				<h4 id="drinkRating"><?php echo $ratings[$drinkid] ?></h4>
-				<input type="button" id="voteDownButton" data-icon="arrow-d" data-iconpos="notext" />
-
 			<div id="instructions">
 				<h3>Instructions</h3>
 				<p><?php echo $instructions; ?></p>
