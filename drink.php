@@ -1,4 +1,5 @@
 <?php
+	session_start();
 	$drinkid = $_GET["id"];
 	$name = array(1 => "MartiniX", "Cranberry Delight", "Fat Charles Special");
 	$ingredients = array("3 shots vodka", "4 oz. cranberry juice", "1 oz. pineapple juice");
@@ -47,8 +48,9 @@
 			</div>
 			
 			<div id="comments">
-				<div data-role="controlgroup"><a href="addComment.html" data-role="button">Add a Comment</a></div>
-				<div data-role="controlgroup"><input type="button" id="showCommentButton" value="Show Comments" /><div id="commentDiv"></div></div>
+				<div data-role="controlgroup"><?php echo '<a href="php/commentForm.php?id=' . $drinkid . '&name=' . $name[$drinkid] . '" data-role="button">Add a Comment</a>'; ?></div>
+				<div data-role="controlgroup"><input type="button" id="showCommentButton" value="Show Comments" /></div>
+				<div id="commentDiv"></div>
 			</div>
 			
 		</div><!-- /content -->

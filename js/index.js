@@ -45,16 +45,34 @@ $(document).on('pageinit', '#drinkPage', function() {
 				commentURL,
 				{ param : drinkId },
 				function(data) {
-					$.each(data, function(key, value) {
-						var obj = $.parseJSON(value);
-						var commentStr = "<p>" + obj.user + "(" + obj.time + ")" + ": " + obj.comment + "</p>";
-						$("#commentDiv").append(commentStr);
-					});
+					if (data.length > 0) {
+						$.each(data, function(key, value) {
+							var obj = $.parseJSON(value);
+							var commentStr = "<p>" + obj.user + "(" + obj.time + ")" + ": " + obj.comment + "</p>";
+							$("#commentDiv").append(commentStr);
+						});
+					} else {
+						$("#commentDiv").append("<i>There are no comments at this time</i>");
+					}
 				},
 				"json"
 			);
 			isShowingComments = true;
 		}
+	});
+});
+
+$(document).on('pageinit', '#commentForm', function() { 
+	$("#submitCommentButton").tap(function() {
+		var drinkId = $("#commentForm").data("drinkid");
+		var addCommentURL = "addComment.php";
+		$.post(
+			addCommentURL,
+			{ id: drinkId, user: $("#nameInputField").val(), comment: $("#commentTextArea").val() },
+			function(data) {
+				$.mobile.changePage("../drink.php?id=" + drinkId);
+			}
+		);
 	});
 });
 			
