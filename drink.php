@@ -19,7 +19,13 @@
 	</head>
 	<body>
 	<div data-role="page" id="drinkPage">
-		<div data-role="header">
+		<script type="text/javascript">
+			$(document).on("pageinit", function() {
+				$("#drinkPage").data("drinkid", <?php echo $drinkid; ?>);
+			});
+		</script>
+			
+			<div data-role="header">
 			<h1><?php echo $name[$drinkid]; ?></h1>
 		</div>
 
@@ -39,6 +45,12 @@
 				<h3>Instructions</h3>
 				<p><?php echo $instructions; ?></p>
 			</div>
+			
+			<div id="comments">
+				<div data-role="controlgroup"><a href="addComment.html" data-role="button">Add a Comment</a></div>
+				<div data-role="controlgroup"><input type="button" id="showCommentButton" value="Show Comments" /><div id="commentDiv"></div></div>
+			</div>
+			
 		</div><!-- /content -->
 
 	</div><!-- /page -->

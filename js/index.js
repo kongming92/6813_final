@@ -10,7 +10,6 @@ $(document).on('pageinit', '#namePage', function() {
 		$("#resultsList").empty();
 		var searchString = $("#drinkName").val();
 		var searchURL = "php/searchByName.php";
-		console.log(searchString);
 		if ($.trim(searchString) == "") {
 			return;
 		}
@@ -30,4 +29,33 @@ $(document).on('pageinit', '#namePage', function() {
 		);
 	});
 });
+
+$(document).on('pageinit', '#drinkPage', function() {
+	var isShowingComments = false;
+	$("#showCommentButton").tap(function() {
+		if (isShowingComments) {
+			$("#commentDiv").empty();
+			$(this).parent().find(".ui-btn-text").text("Show Comments");
+			isShowingComments = false;
+		} else {
+			$(this).parent().find(".ui-btn-text").text("Hide Comments");
+			var commentURL = "php/getComments.php";
+			var drinkId = $("#drinkPage").data("drinkid");
+			$.post(
+				commentURL,
+				{ param : drinkId },
+				function(data) {
+					$.each(data, function(key, value) {
+						var obj = $.parseJSON(value);
+						var commentStr = "<p>" + obj.user + "(" + obj.time + ")" + ": " + obj.comment + "</p>";
+						$("#commentDiv").append(commentStr);
+					});
+				},
+				"json"
+			);
+			isShowingComments = true;
+		}
+	});
+});
+			
 
