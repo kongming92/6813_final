@@ -4,7 +4,7 @@
 $(document).on('pageinit', '#homePage', function() {//can add a selector
 	$('div [data-role="controlgroup"]').addClass('ui-shadow');
 	$("a").tap(function() {
-		window.sessionStorage.clear();
+		sessionStorage.clear();
 	});
 });
 
@@ -160,7 +160,6 @@ $(document).on('pageinit', '#submitPage', function() {
 });
 
 $(document).on('pageshow', '#bin', function() {
-	console.log("HERE2");
 	$("#binList").empty();
 	$.each(sessionStorage, function(k, v)	{
 		var id = sessionStorage.key(k);
@@ -180,5 +179,24 @@ $(document).on('pageshow', '#bin', function() {
 		$("#" + id).attr("checked", false);
 		$("#" + id).checkboxradio("refresh");
 	});
-});			
+});	
 
+$(document).on('pageshow', '#searchResults', function() {
+	console.log("HERE");
+
+	var searchURL = "php/searchByName.php";
+	$.post(
+		searchURL,
+		{ param : "" },
+		function(data) {
+			$.each(data, function(key, value) {
+				var obj = $.parseJSON(value);
+				var itemStr = "<li><a href=\"drink.php?id=" + key + "\">" + obj.name;
+				itemStr += "<span class=\"ui-li-count\">" + obj.rating + "</span></a></li>";
+				$("#resultsList").append(itemStr);						
+			});
+			$("#resultsList").listview("refresh");
+		},
+		"json"
+	);
+});
