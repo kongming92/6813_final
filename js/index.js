@@ -131,18 +131,19 @@ $(document).on('pageinit', '#beer, #juice, #liquor, #soda, #wine, #misc', functi
 });
 
 $(document).on('pageinit', '#submitPage', function() {
+	var removeBtn = $('tr:last a').detach();
+	$('tr:last').detach();
 	$('#addIngredient').on('vclick', function() {
 		var row = $('<tr></tr>');
-		$.each($('input'), function(i, elem) {
-			if($(elem).val() == '') {
-				return
-			}
-			var td = $('<td></td>');
-			td.append($(elem).val());
-		});
+		var td = $('<td></td>');
+		td.append($('input:first').val());
+		row.append(td);
 		td = $('<td></td>');
-		var removeBtn = $('<a href="#" data-role="button" data-icon="delete" data-iconpos="left" data-inline="true" class="removeAddedIngredient">Remove</a>');
-		td.append(removeBtn);
+		td.append(removeBtn.clone().on('vclick', 
+			function() {
+				console.log($(this).parent().parent().remove());
+			})
+		);
 		row.append(td);
 
 		var inputRow = $('table tr:last').detach();
@@ -152,9 +153,6 @@ $(document).on('pageinit', '#submitPage', function() {
 	});
 	$('#removeIngredient').on('vclick', function() {
 		$('input').val('');
-	});
-	
-	$('.removeAddedIngredient').on('vclick', function() {
 	});
 });
 
