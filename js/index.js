@@ -150,6 +150,7 @@ $(document).on('pageinit', '#submitPage', function() {
 		$('table').append(row);
 		$('table').append(inputRow);
 		$('#removeIngredient').triggerHandler('vclick');
+		$('table').focus();
 	});
 	$('#removeIngredient').on('vclick', function() {
 		$('input').val('');
