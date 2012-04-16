@@ -133,14 +133,14 @@ $(document).on('pageinit', '#beer, #juice, #liquor, #soda, #wine, #misc', functi
 $(document).on('pageinit', '#submitPage', function() {
 	var removeBtn = $('tr:last a').detach();
 	$('tr:last').detach();
-	$('#addIngredient').on('tap', function() {
+	$('#addIngredient').click( function() {
 		alert('adding ingredient');
 		var row = $('<tr></tr>');
 		var td = $('<td></td>');
 		td.append($('input:first').val());
 		row.append(td);
 		td = $('<td></td>');
-		td.append(removeBtn.clone().on('tap', 
+		td.append(removeBtn.clone().click( 
 			function() {
 				alert('hitting delete button');
 				$(this).parent().parent().remove();
