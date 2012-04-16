@@ -12,10 +12,10 @@ $(document).on('pageinit', '#namePage', function() {
 	$('#drinkName').keypress(function (e) {
 		var code = (e.keyCode? e.keyCode: e.which);
 		if (code==13) {
-			$('#searchButton').triggerHandler('vclick');
+			$('#searchButton').triggerHandler('click');
 		}
 	});
-	$("#searchButton").tap(function() {
+	$("#searchButton").click(function() {
 		$("#resultsList").empty();
 		var searchString = $("#drinkName").val();
 		var searchURL = "php/searchByName.php";
@@ -162,6 +162,7 @@ $(document).on('pageinit', '#submitPage', function() {
 		$.each($('table tr'), function(i, elem) {
 			$(this).remove();
 		});
+		$('textarea').val('');
 		$('table').append(header);
 		$('table').append(last);
 	});
