@@ -152,10 +152,19 @@ $(document).on('pageinit', '#submitPage', function() {
 		$('table').append(row);
 		$('table').append(inputRow);
 		$('#removeIngredient').triggerHandler('vclick');
-		$('table').focus();
+		$('input').focus();
 	});
 	$('#removeIngredient').on('vclick', function() {
 		$('input').val('');
+	});
+	$('#submitDrink').click(function() {
+		var header = $('table tr:first').detach();
+		var last = $('table tr:last').detach();
+		$.each($('table tr'), function(i, elem) {
+			$(this).remove();
+		});
+		$('table').append(header);
+		$('table').append(last);
 	});
 });
 
