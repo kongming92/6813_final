@@ -22,7 +22,7 @@ $ratings = array(1 => "+34", "+17", "-3");
 	<body>
 	<div data-role="page" id="homePage">
 		<div data-role="header">
-			<a href="#" data-type="button" data-icon="arrow-l" data-rel="back">Home</a><h1>Recently Viewed Drinks</h1>
+			<a href="index.html" data-type="button" data-icon="arrow-l">Home</a><h1>Recently Viewed Drinks</h1>
 		</div>
 
 		<div data-role="content">
