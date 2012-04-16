@@ -1,4 +1,4 @@
-/* 
+/*
 	Fat Charles 6.813 JS File
 */
 $(document).on('pageinit', '#homePage', function() {//can add a selector
@@ -153,8 +153,7 @@ $(document).on('pageinit', '#submitPage', function() {
 		$('input').val('');
 	});
 	$('.removeAddedIngredient').on('vclick', function() {
-		
->>>>>>> f843f8596010765a77e0298210bada7c58b52c4e
+	
 	});
 });
 
