@@ -139,9 +139,10 @@ $(document).on('pageinit', '#submitPage', function() {
 		td.append($('input:first').val());
 		row.append(td);
 		td = $('<td></td>');
-		td.append(removeBtn.clone().live('vclick', 
+		td.append(removeBtn.clone().on('vclick', 
 			function() {
-				console.log($(this).parent().parent().remove());
+				console.log($(this).parent().parent());
+				$(this).parent().parent().remove();
 			})
 		);
 		row.append(td);
