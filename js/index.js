@@ -136,7 +136,7 @@ $(document).on('pageinit', '#submitPage', function() {
 	$('#addIngredient').click( function() {
 		var row = $('<tr></tr>');
 		var td = $('<td></td>');
-		td.append($('input:first').val());
+		td.text($('input:first').val());
 		row.append(td);
 		td = $('<td></td>');
 		td.append(removeBtn.clone().click( 
@@ -149,10 +149,10 @@ $(document).on('pageinit', '#submitPage', function() {
 		var inputRow = $('table tr:last').detach();
 		$('table').append(row);
 		$('table').append(inputRow);
-		$('#removeIngredient').triggerHandler('vclick');
+		$('#removeIngredient').triggerHandler('click');
 		$('input').focus();
 	});
-	$('#removeIngredient').on('vclick', function() {
+	$('#removeIngredient').click(function() {
 		$('input').val('');
 	});
 	$('#submitDrink').click(function() {
