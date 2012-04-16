@@ -3,6 +3,9 @@
 */
 $(document).on('pageinit', '#homePage', function() {//can add a selector
 	$('div [data-role="controlgroup"]').addClass('ui-shadow');
+	$("a").tap(function() {
+		window.sessionStorage.clear();
+	});
 });
 
 $(document).on('pageinit', '#namePage', function() {
@@ -110,16 +113,43 @@ $(document).on('pageinit', '#commentForm', function() {
 		);
 	});
 });
-
-$(document).on('pageinit', '#bin', function() {
-	$(".binRemoveButton").tap(function() {
-		$(this).closest("li").remove();
-		// MODIFICATIONS TO LOCAL STORAGE AND DOM
-	});
-});
 			
 $(document).on('pageinit', '#beer, #juice, #liquor, #soda, #wine, #misc', function() {
-	$('label').on('vclick', function(e){
-		var key = $(this).text();
+	$('label').on("vclick", function(e){
+		var id = $(this).attr("for");
+		var text = $(this).text();
+		console.log(id + " " + text);
+		if ($("#" + id).attr("checked") == "checked") {
+			sessionStorage[id] = text;
+			console.log(sessionStorage);
+
+		} else {
+			sessionStorage.removeItem(id);
+			console.log(sessionStorage);
+		}
 	});
 });
+
+$(document).on('pageshow', '#bin', function() {
+	console.log("HERE2");
+	$("#binList").empty();
+	$.each(sessionStorage, function(k, v)	{
+		var id = sessionStorage.key(k);
+		var liString = "<li id=" + id + ">" + sessionStorage[id] + "<div class=\"binRemove\"><input type=\"button\" class=\"binRemoveButton\" data-icon=\"delete\" data-inline=\"true\" data-mini=\"true\" data-iconpos=\"notext\" /></div></li>";
+		$("#binList").append(liString);
+	});
+	$("#binList").listview("refresh");
+	$(".binRemoveButton").button();
+	
+	$(".binRemoveButton").tap(function() {
+		var liItem = $(this).closest("li");
+		var id = liItem.attr("id");
+		liItem.remove();
+		console.log(liItem);
+		console.log(id);
+		sessionStorage.removeItem(id);
+		$("#" + id).attr("checked", false);
+		$("#" + id).checkboxradio("refresh");
+	});
+});			
+
