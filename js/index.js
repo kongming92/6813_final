@@ -127,6 +127,34 @@ $(document).on('pageinit', '#beer, #juice, #liquor, #soda, #wine, #misc', functi
 			sessionStorage.removeItem(id);
 			console.log(sessionStorage);
 		}
+});
+
+$(document).on('pageinit', '#submitPage', function() {
+	$('#addIngredient').on('vclick', function() {
+		var row = $('<tr></tr>');
+		$.each($('input'), function(i, elem) {
+			if($(elem).val() == '') {
+				return
+			}
+			var td = $('<td></td>');
+			td.append($(elem).val());
+		});
+		td = $('<td></td>');
+		var removeBtn = $('<a href="#" data-role="button" data-icon="delete" data-iconpos="left" data-inline="true" class="removeAddedIngredient">Remove</a>');
+		td.append(removeBtn);
+		row.append(td);
+
+		var inputRow = $('table tr:last').detach();
+		$('table').append(row);
+		$('table').append(inputRow);
+		$('#removeIngredient').triggerHandler('vclick');
+	});
+	$('#removeIngredient').on('vclick', function() {
+		$('input').val('');
+	});
+	$('.removeAddedIngredient').on('vclick', function() {
+		
+>>>>>>> f843f8596010765a77e0298210bada7c58b52c4e
 	});
 });
 
