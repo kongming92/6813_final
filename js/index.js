@@ -134,7 +134,6 @@ $(document).on('pageinit', '#submitPage', function() {
 	var removeBtn = $('tr:last a').detach();
 	$('tr:last').detach();
 	$('#addIngredient').click( function() {
-		alert('adding ingredient');
 		var row = $('<tr></tr>');
 		var td = $('<td></td>');
 		td.append($('input:first').val());
@@ -142,7 +141,6 @@ $(document).on('pageinit', '#submitPage', function() {
 		td = $('<td></td>');
 		td.append(removeBtn.clone().click( 
 			function() {
-				alert('hitting delete button');
 				$(this).parent().parent().remove();
 			})
 		);
@@ -158,6 +156,7 @@ $(document).on('pageinit', '#submitPage', function() {
 		$('input').val('');
 	});
 	$('#submitDrink').click(function() {
+		alert('Successfully submitted drink');
 		var header = $('table tr:first').detach();
 		var last = $('table tr:last').detach();
 		$.each($('table tr'), function(i, elem) {
