@@ -38,7 +38,7 @@
 		</script>
 			
 			<div data-role="header">
-			<a href="#" data-type="button" data-icon="arrow-l" data-rel="back">Back</a>
+			<a href="index.php" data-type="button" data-icon="arrow-l" data-rel="back">Back</a>
 			<h1><?php echo $name[$drinkid]; ?></h1>
 		</div>
 

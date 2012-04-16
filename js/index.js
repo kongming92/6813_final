@@ -108,7 +108,7 @@ $(document).on('pageinit', '#commentForm', function() {
 			addCommentURL,
 			{ id: drinkId, user: $("#nameInputField").val(), comment: $("#commentTextArea").val() },
 			function(data) {
-				$.mobile.changePage("../drink.php?id=" + drinkId);
+				//$.mobile.changePage("../drink.php?id=" + drinkId);
 			}
 		);
 	});

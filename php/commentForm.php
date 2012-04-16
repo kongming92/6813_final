@@ -27,13 +27,15 @@
 		</script>
 			
 		<div data-role="header">
+			<a href="#" data-type="button" data-icon="arrow-l" data-rel="back">Back</a>
 			<h1>Add comment for <?php echo $name; ?> </h1>
 		</div>
 	
 		<div data-role="content">
 			<input type="text" id="nameInputField" placeholder="Your nickname" /><br />
 			<textarea id="commentTextArea" placeholder="Enter your comment here"></textarea>
-			<input type="button" id="submitCommentButton" data-icon="search" data-inline="true" value="Submit Comment" />
+			<?php echo "<a href=\"#\" data-role=\"button\" data-rel=\"back\" id=\"submitCommentButton\">Submit Comment</a>" ?>
+			<!--<input type="button" id="submitCommentButton" data-icon="search" data-inline="true" value="Submit Comment" />-->
 		</div><!-- /content -->
 
 	</div><!-- /page -->
