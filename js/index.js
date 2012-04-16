@@ -133,13 +133,13 @@ $(document).on('pageinit', '#beer, #juice, #liquor, #soda, #wine, #misc', functi
 $(document).on('pageinit', '#submitPage', function() {
 	var removeBtn = $('tr:last a').detach();
 	$('tr:last').detach();
-	$('#addIngredient').on('vclick', function() {
+	$('#addIngredient').tap(function() {
 		var row = $('<tr></tr>');
 		var td = $('<td></td>');
 		td.append($('input:first').val());
 		row.append(td);
 		td = $('<td></td>');
-		td.append(removeBtn.clone().live('vclick', 
+		td.append(removeBtn.clone().tap(
 			function() {
 				console.log($(this).parent().parent().remove());
 			})
@@ -151,7 +151,7 @@ $(document).on('pageinit', '#submitPage', function() {
 		$('table').append(inputRow);
 		$('#removeIngredient').triggerHandler('vclick');
 	});
-	$('#removeIngredient').on('vclick', function() {
+	$('#removeIngredient').tap(function() {
 		$('input').val('');
 	});
 });
