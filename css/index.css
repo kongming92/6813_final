@@ -2,21 +2,26 @@ body {
 	font-family:Arial;
 }
 
-#homePage {
+#homePage, #namePage, #ingredientsPage, #commentForm, #submitPage {
 	text-align:center;
 }
 
-#namePage {
-	text-align:center;
+#submitPage textarea {
+	width:99%;
+	margin-right:auto;
 }
 
-#ingredientsPage {
-   text-align:center;
+#submitPage h3 {
+	text-align:left;
 }
 
-#commentForm {
-	text-align: center;
+#submitPage table {
+	width:100%;
 }
+
+#submitPage td {
+	margins:12%;
+}	
 
 #drinkPage #ratings {
 	text-align: center;
