@@ -127,6 +127,7 @@ $(document).on('pageinit', '#beer, #juice, #liquor, #soda, #wine, #misc', functi
 			sessionStorage.removeItem(id);
 			console.log(sessionStorage);
 		}
+	});
 });
 
 $(document).on('pageinit', '#submitPage', function() {
@@ -152,8 +153,8 @@ $(document).on('pageinit', '#submitPage', function() {
 	$('#removeIngredient').on('vclick', function() {
 		$('input').val('');
 	});
-	$('.removeAddedIngredient').on('vclick', function() {
 	
+	$('.removeAddedIngredient').on('vclick', function() {
 	});
 });
 
