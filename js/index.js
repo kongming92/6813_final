@@ -1,7 +1,7 @@
 /*
 	Fat Charles 6.813 JS File
 */
-$(document).on('pageinit', '#homePage', function() {//can add a selector
+$(document).on('pageshow', '#homePage', function() {//can add a selector
 	$('div [data-role="controlgroup"]').addClass('ui-shadow');
 	$("a").tap(function() {
 		sessionStorage.clear();
@@ -15,7 +15,7 @@ $(document).on('pageinit', '#namePage', function() {
 			$('#searchButton').triggerHandler('vclick');
 		}
 	});
-	$("#searchButton").on('vclick', function() {
+	$("#searchButton").tap(function() {
 		$("#resultsList").empty();
 		var searchString = $("#drinkName").val();
 		var searchURL = "php/searchByName.php";
@@ -179,8 +179,7 @@ $(document).on('pageshow', '#bin', function() {
 });	
 
 $(document).on('pageshow', '#searchResults', function() {
-	console.log("HERE");
-
+	$("#resultsList").empty();
 	var searchURL = "php/searchByName.php";
 	$.post(
 		searchURL,
