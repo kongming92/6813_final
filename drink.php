@@ -34,6 +34,7 @@
 		<script type="text/javascript">
 			$(document).on("pageinit", function() {
 				$("#drinkPage").data("drinkid", <?php echo $drinkid; ?>);
+				$("#drinkPage").data("rating", <?php echo $ratings[$drinkid]; ?>);
 			});
 		</script>
 			
@@ -43,23 +44,21 @@
 		</div>
 
 		<div data-role="content">
-			<div id="topDiv">
-				<div id="ratings">
-					<input type="button" id="voteUpButton" data-icon="arrow-u" data-iconpos="notext" />
-					<h4 id="drinkRating"><?php echo $ratings[$drinkid] ?></h4>
-					<input type="button" id="voteDownButton" data-icon="arrow-d" data-iconpos="notext" />
-				</div>
-				
-				<div id="ingredients">
-					<h3>Ingredients</h3>
-					<ul>
-					<?php
-						foreach ($ingredients as $i) {
-							echo "<li>" . $i . "</li>";
-						}
-					?>
-					</ul>
-				</div>
+			<div id="ratings">
+				<h4 id="drinkRating"><?php echo $ratings[$drinkid] . " people like this drink" ?></h4>
+				<input type="button" id="likeButton" value="Like this drink" />
+
+			</div>
+			
+			<div id="ingredients">
+				<h3>Ingredients</h3>
+				<ul>
+				<?php
+					foreach ($ingredients as $i) {
+						echo "<li>" . $i . "</li>";
+					}
+				?>
+				</ul>
 			</div>
 			<div id="instructions">
 				<h3>Instructions</h3>
@@ -68,8 +67,34 @@
 			
 			<div id="comments">
 				<div data-role="controlgroup"><?php echo '<a href="php/commentForm.php?id=' . $drinkid . '&name=' . $name[$drinkid] . '" data-role="button">Add a Comment</a>'; ?></div>
-				<div data-role="controlgroup"><input type="button" id="showCommentButton" value="Show Comments" /></div>
-				<div id="commentDiv"></div>
+				<div id="commentHeaderDiv">
+					<h3>Comments</h3>
+				</div>
+				<div id="showHideCommentsDiv">
+					<a href="#" id="showHideComments">(Hide comments)</a>
+				</div>
+				<div id="commentDiv">
+					<?php
+						$comments = array(
+                                        array("user" => "user1234", "comment" => "OMG SO GOOOOOOOD!!", "time" => "Apr 15, 2012, 8:23pm"),
+                                        array("user" => "coolkid34", "comment" => "dude, I hated that drink", "time" => "Apr 12, 2012, 2:23am"),
+                                        array("user" => "whoami", "comment" => "yeah that was really good", "time" => "Jan 2, 2012, 1:08am"));
+
+						if (isset($_SESSION["id"]) && isset($_POST["param"])) {
+								if ($_POST["param"] == $_SESSION["id"]) {
+										$thiscomment = array("user" => $_SESSION["user"], "comment" => $_SESSION["comment"], "time" => $_SESSION["time"]);
+										array_unshift($comments, $thiscomment);
+								}
+						}
+						
+						foreach ($comments as $comment) {
+							echo "<p>" . $comment["user"] . " (" . $comment["comment"] . ")" . ": " . $comment["time"] . "</p>";
+						}
+					
+					?>
+
+				
+				</div>
 			</div>
 			
 		</div><!-- /content -->

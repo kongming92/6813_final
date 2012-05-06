@@ -24,19 +24,6 @@ body {
 	margins:12%;
 }
 
-#drinkPage #ratings {
-	text-align: center;
-	display: inline-block;
-	width: 35px;
-}
-
-#drinkPage #ingredients {
-	display: inline-block;
-	position: relative;
-	left: 10px;
-	top: -10px;
-}
-
 #bin #binList li {
 	font-size: 100%;
 }

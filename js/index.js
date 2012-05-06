@@ -40,13 +40,20 @@ $(document).on('pageinit', '#namePage', function() {
 });
 
 $(document).on('pageinit', '#drinkPage', function() {
-	var isShowingComments = false;
-	$("#showCommentButton").tap(function() {
+	var isShowingComments = true;
+	var currentComments;
+	var firstComment = true;
+
+	$("#showHideComments").tap(function() {
 		if (isShowingComments) {
+			currentComments = $("#commentDiv").html();
 			$("#commentDiv").empty();
-			$(this).parent().find(".ui-btn-text").text("Show Comments");
+			$(this).text("(Show comments)")
 			isShowingComments = false;
 		} else {
+			
+			$("#commentDiv").html(currentComments);
+			/*
 			$(this).parent().find(".ui-btn-text").text("Hide Comments");
 			var commentURL = "php/getComments.php";
 			var drinkId = $("#drinkPage").data("drinkid");
@@ -66,37 +73,39 @@ $(document).on('pageinit', '#drinkPage', function() {
 				},
 				"json"
 			);
+			*/
+			$(this).text("(Hide comments)");
 			isShowingComments = true;
 		}
 	});
 	
-	var isVoteUp = false;
-	var isVoteDown = false;
-	
-	$("#voteUpButton").tap(function() {
-		var current = parseInt($("#drinkRating").text());
-		if (isVoteDown) {
-			$("#drinkRating").text(String(current+2));
-		} else{
-			$("#drinkRating").text(String(current+1));
+	var isLiked = false;
+	var first = true;
+	var numberLikes = 0;
+	$("#likeButton").tap(function() {
+		if (first) {
+			numberLikes = $("#drinkPage").data("rating");
+			first = false;
 		}
-		$("#voteUpButton").button("disable");
-		$("#voteDownButton").button("enable");
-		isVoteUp = true;
-		isVoteDown = false;
+		if (isLiked) {
+			// ajax to decr num likes
+			isLiked = false;
+			numberLikes = numberLikes - 1;
+			$("#likeButton").val("Like this drink");
+			$("#likeButton").button("refresh");
+		} else {
+			// ajax to incr num likes
+			isLiked = true;
+			numberLikes = numberLikes + 1;
+			$("#likeButton").val("Unlike this drink");
+			$("#likeButton").button("refresh");
+		}
+		
+		// ajax to get num likes
+		$("#drinkRating").text(numberLikes + " people like this drink.");
+		
 	});
 	
-	$("#voteDownButton").tap(function() {
-		var current = parseInt($("#drinkRating").text());
-		if (isVoteUp) {
-			$("#drinkRating").text(String(current-2));
-		} else{
-			$("#drinkRating").text(String(current-1));
-		}		$("#voteDownButton").button("disable");
-		$("#voteUpButton").button("enable");
-		isVoteDown = true;
-		isVoteUp = false;
-	});
 		
 });
 

@@ -1,11 +1,21 @@
-
 <?php
 
-	$name = $_POST["param"];
-	
-	// arrays id => drink name
-	$results = array(1 => json_encode(array("name" => "MartiniX", "rating" => "+34")), 
-					json_encode(array("name" => "Cranberry Delight", "rating" => "+17")), 
-					json_encode(array("name" => "Fat Charles Special", "rating" => "-3")));
-	echo json_encode($results);
+$search = $_POST["param"];
+
+$con = mysql_connect("localhost","fat_charles_user","fat_charles");
+if (!$con){
+	die("Could not connect: " . mysql_error());
+}
+
+mysql_select_db("fat_charles_db");
+
+
+$result = array();
+$results = mysql_query("select instructions.id, instructions.drink_name, ratings.rating from instructions, ratings where instructions.id = ratings.id and instructions.drink_name like '%$search%' order by ratings.rating desc;");
+while(list($id,$drinkname,$rating) = mysql_fetch_array($results)){
+	$result[] = json_encode(array("id" => $id, "name" => $drinkname, "rating" => $rating));
+}
+
+echo json_encode($result);
+mysql_close($con);
 ?>
