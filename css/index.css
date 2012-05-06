@@ -17,6 +17,7 @@ body {
 
 #submitPage table {
 	width:100%;
+	max-width:100%;
 }
 
 #submitPage td {
