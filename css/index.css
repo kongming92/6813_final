@@ -46,3 +46,17 @@ body {
 	right: 10px;
 	top: 2px;
 }
+
+.badges {
+	visibility:hidden;
+	position:fixed;
+	width:1.5em;
+	height:1.5em;
+	z-index:2;
+}
+
+.counterDisplay {
+	position:fixed;
+	z-index:3;
+	text-align:center;
+}
