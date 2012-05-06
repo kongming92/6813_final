@@ -136,7 +136,7 @@ $(document).on('pageinit', '#submitPage', function() {
 	$('#addIngredient').click( function() {
 		var row = $('<tr></tr>');
 		var td = $('<td></td>');
-		td.text($('input:first').val());
+		td.text($('#currIngredient').val());
 		row.append(td);
 		td = $('<td></td>');
 		td.append(removeBtn.clone().click( 
@@ -152,10 +152,12 @@ $(document).on('pageinit', '#submitPage', function() {
 		$('#removeIngredient').triggerHandler('click');
 		$('input').focus();
 	});
-	$('#removeIngredient').click(function() {
+	
+	$('#removeIngredient').click(function() { //this just takes care of clearing it. this is the handler for when you hit "Clear".
 		$('input').val('');
 	});
-	$('#submitDrink').click(function() {
+	
+	$('#submitDrink').click(function() { //what happens when you click submit the drink.
 		alert('Successfully submitted drink');
 		var header = $('table tr:first').detach();
 		var last = $('table tr:last').detach();
