@@ -110,7 +110,7 @@ $(document).on('pageinit', '#drinkPage', function() {
 });
 
 $(document).on('pageinit', '#commentForm', function() { 
-	$("#submitCommentButton").on('vclick', function() {
+	$("#submitCommentButton").click(function() {
 		var drinkId = $("#commentForm").data("drinkid");
 		var addCommentURL = "addComment.php";
 		$.post(
@@ -124,19 +124,56 @@ $(document).on('pageinit', '#commentForm', function() {
 });
 			
 $(document).on('pageinit', '#beer, #juice, #liquor, #soda, #wine, #misc', function() {
-	$('label').on("vclick", function(e){
+	if(sessionStorage['totalCount']==undefined) {
+		sessionStorage['totalCount']=0;
+		console.log('session storage for count initialized');
+	}
+		
+	$('label').click(function(e){
+		//SOME STUFF RELATED TO SESSION STORAGE
 		var id = $(this).attr("for");
 		var text = $(this).text();
-		console.log(id + " " + text);
+		//console.log(id + " " + text);
 		if ($("#" + id).attr("checked") == "checked") {
-			sessionStorage[id] = text;
-			console.log(sessionStorage);
-
-		} else {
 			sessionStorage.removeItem(id);
-			console.log(sessionStorage);
+			sessionStorage['totalCount'] = parseInt(sessionStorage['totalCount']) - 1;
+			console.log('decrementing totalCount');
+			console.log(sessionStorage['totalCount']);
+		} else {
+			sessionStorage[id] = text;
+			sessionStorage['totalCount'] = parseInt(sessionStorage['totalCount']) + 1;
+			console.log('incrementing totalCount');
+			console.log(sessionStorage['totalCount']);
+		}
+		
+		//UPDATE THE BADGE TEXT ----------------------------__FIX THIS
+		if (sessionStorage['totalCount']==0) {
+			$('.badges').css('visibility', 'hidden');
+			$('.counterDisplay').text('');
+		} else {
+			$('.badges').css('visibility', 'visible');
+			$('.counterDisplay').css('top', $('.badges:first').position().top);
+			$('.counterDisplay').css('left', $('.badges:first').position().left);
+			$('.counterDisplay').text($(sessionStorage['totalCount']));
 		}
 	});
+});
+
+$(document).on('pageshow', '#beer, #juice, #liquor, #soda, #wine, #misc', function() {
+	if(sessionStorage['totalCount']==0) {
+		return ;
+	} else {
+		$('.badges').css('visibility', 'visible');
+		$('.badges').css('top', $(this).children('div[data-role="header"]').children('a:last').position().top);
+		$('.badges').css('left', $(this).children('div[data-role="header"]').children('a:last').position().left-$('.badges:first').width());
+		//$(this).children('div[data-role="header"]').children('img') select for the image
+		$('.counterDisplay').css('top', $(this).children('div[data-role="header"]').children('img').position().top);
+		$('.counterDisplay').css('left', $(this).children('div[data-role="header"]').children('img').position().left);
+		$('.counterDisplay').css('width', $('.badges:first').width());
+		$('.counterDisplay').css('height', $('.badges:first').height());
+		$('.counterDisplay').css('margin-top', $('.counterDisplay').height()/5);
+		$('.counterDisplay').text(sessionStorage['totalCount']);
+	}
 });
 
 $(document).on('pageinit', '#submitPage', function() {
@@ -189,7 +226,7 @@ $(document).on('pageshow', '#bin', function() {
 	$("#binList").listview("refresh");
 	$(".binRemoveButton").button();
 	
-	$(".binRemoveButton").tap(function() {
+	$(".binRemoveButton").click(function() {
 		var liItem = $(this).closest("li");
 		var id = liItem.attr("id");
 		liItem.remove();
