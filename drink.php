@@ -44,6 +44,19 @@
 		$instructions = $row["instructions"];
 	}
 	
+	$comments_query = mysql_query("SELECT username, comment, time FROM comments WHERE id=$drinkid ORDER BY time DESC");
+	$comment = mysql_fetch_assoc($comments_query);
+	$comments = array("<p>There are no comments at this time.</p>");
+	if (isset($comment["username"]) && isset($comment["time"]) && isset($comment["comment"])) {
+		$comments = array();
+		$thisCommentStr = "<p>" . $comment["username"] . " (" . $comment["time"] . ")" . ": " . $comment["comment"] . "</p>";
+		$comments[] = $thisCommentStr;
+		while ($comment = mysql_fetch_assoc($comments_query)) {
+			$thisCommentStr = "<p>" . $comment["username"] . " (" . $comment["time"] . ")" . ": " . $comment["comment"] . "</p>";
+			$comments[] = $thisCommentStr;
+		}
+	}
+	
 ?>
 
 <!doctype html>
@@ -66,7 +79,7 @@
 			});
 		</script>
 			
-			<div data-role="header">
+		<div data-role="header">
 			<a href="index.php" data-type="button" data-icon="arrow-l" data-rel="back">Back</a>
 			<h1><?php echo $drink_name; ?></h1>
 		</div>
@@ -102,36 +115,41 @@
 				</div>
 				<br />
 				<div data-role="controlgroup">
-					<input type="button" id="commentButton" value="Leave a comment" />
+					<a href="#commentPage" data-role="button" id="commentFormButton" data-rel="dialog" data-transition="pop">Leave a comment</a>
 				</div>
 				
 				<div id="commentDiv">
-					<?php
-						$comments = array(
-                                        array("user" => "user1234", "comment" => "OMG SO GOOOOOOOD!!", "time" => "Apr 15, 2012, 8:23pm"),
-                                        array("user" => "coolkid34", "comment" => "dude, I hated that drink", "time" => "Apr 12, 2012, 2:23am"),
-                                        array("user" => "whoami", "comment" => "yeah that was really good", "time" => "Jan 2, 2012, 1:08am"));
-
-						if (isset($_SESSION["id"]) && isset($_POST["param"])) {
-								if ($_POST["param"] == $_SESSION["id"]) {
-										$thiscomment = array("user" => $_SESSION["user"], "comment" => $_SESSION["comment"], "time" => $_SESSION["time"]);
-										array_unshift($comments, $thiscomment);
-								}
-						}
-						
+					<?php 
 						foreach ($comments as $comment) {
-							echo "<p>" . $comment["user"] . " (" . $comment["time"] . ")" . ": " . $comment["comment"] . "</p>";
+							echo $comment;
 						}
-					
 					?>
-
-				
+					
 				</div>
 			</div>
 			
 		</div><!-- /content -->
 
 	</div><!-- /page -->
+	
+	<div data-role="page" id="commentPage">
+	
+		<div data-role="header">
+			<h1><?php echo $drink_name; ?></h1>
+		</div>
+		
+		<div data-role="content">
+			<h3>Leave a comment for <?php echo $drink_name; ?></h3>
+			<input type="text" id="nameInputField" placeholder="Your nickname" /><br />
+			<textarea id="commentTextArea" placeholder="Enter your comment here"></textarea>
+			<br />
+			<div data-role="controlgroup">
+				<a href="#drinkPage" data-role="button" data-rel="back" id="submitCommentButton">Submit Comment</a>
+			</div>	
+		</div><!-- /content -->
+	
+	</div><!-- /page -->
+	
 	<?php mysql_close($con); ?>
 	</body>
 </html>

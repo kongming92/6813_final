@@ -8,12 +8,12 @@ if (!$con){
 mysql_select_db("fat_charles_db",$con);
 
 
-$drinkname = $_POST["name"];
+$id  = $_POST["id"];
 $username = $_POST["nameInputField"];
 $comment = $_POST["commentTextArea"];
-$time = $_POST["time"];
+//$time = $_POST["time"];
 
-mysql_query("insert into comments values ('$drinkname','$username','$comment',$time);");
+mysql_query("insert into comments values ('$id','$username','$comment',NOW());");
 
 
 mysql_close($con);
