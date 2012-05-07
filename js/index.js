@@ -153,11 +153,11 @@ $(document).on('pageinit', '#beer, #juice, #liquor, #soda, #wine, #misc', functi
 			$('.counterDisplay').text('');
 		} else {
 			$('.badges').css('visibility', 'visible');
-			$('.badges').css('top', $(this).children('div[data-role="header"]').children('a:last').position().top);
-			$('.badges').css('left', $(this).children('div[data-role="header"]').children('a:last').position().left-$('.badges:first').width());
+			$('.badges').css('top', $.mobile.activePage.children('div[data-role="header"]').children('a:last').position().top);
+			$('.badges').css('left', $.mobile.activePage.children('div[data-role="header"]').children('a:last').position().left-$('.badges:first').width());
 			
-			$('.counterDisplay').css('top', $(this).children('div[data-role="header"]').children('img').position().top);
-			$('.counterDisplay').css('left', $(this).children('div[data-role="header"]').children('img').position().left);
+			$('.counterDisplay').css('top', $.mobile.activePage.children('div[data-role="header"]').children('img').position().top);
+			$('.counterDisplay').css('left', $.mobile.activePage.children('div[data-role="header"]').children('img').position().left);
 			$('.counterDisplay').css('width', $('.badges:first').width());
 			$('.counterDisplay').css('height', $('.badges:first').height());
 			$('.counterDisplay').css('margin-top', $('.counterDisplay').height()/5);
