@@ -152,21 +152,21 @@ $(document).on('pageinit', '#beer, #juice, #liquor, #soda, #wine, #misc', functi
 	}
 		
 	//$(this).find('input[type="checkbox"]').bind('change', function(e, ui){
-	$(this).find('label').click(function(e) {
+	$(this).find('label').on('vclick', function(e) {
 		//SOME STUFF RELATED TO SESSION STORAGE
 		//e.preventDefault();
 		var id = $(this).attr("for");
 		var text = $(this).text();
 		//console.log(id + " " + text);
 		if ($("#" + id).attr("checked") == "checked") {
-			sessionStorage.removeItem(id);
-			sessionStorage['totalCount'] = parseInt(sessionStorage['totalCount']) - 1;
-			console.log('decrementing totalCount');
-			console.log(sessionStorage['totalCount']);
-		} else {
 			sessionStorage[id] = text;
 			sessionStorage['totalCount'] = parseInt(sessionStorage['totalCount']) + 1;
 			console.log('incrementing totalCount');
+			console.log(sessionStorage['totalCount']);
+		} else {
+			sessionStorage.removeItem(id);
+			sessionStorage['totalCount'] = parseInt(sessionStorage['totalCount']) - 1;
+			console.log('decrementing totalCount');
 			console.log(sessionStorage['totalCount']);
 		}
 		
