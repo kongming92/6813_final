@@ -1,6 +1,10 @@
 /*
 	Fat Charles 6.813 JS File
 */
+$.ajaxSetup( {
+	cache: false
+});
+
 $(document).on('pageshow', '#homePage', function() {//can add a selector
 	$('div [data-role="controlgroup"]').addClass('ui-shadow');
 	$("a").tap(function() {
@@ -88,13 +92,13 @@ $(document).on('pageinit', '#drinkPage', function() {
 			first = false;
 		}
 		if (isLiked) {
-			// ajax to decr num likes
+			// TODO: ajax to decr num likes
 			isLiked = false;
 			numberLikes = numberLikes - 1;
 			$("#likeButton").val("Like this drink");
 			$("#likeButton").button("refresh");
 		} else {
-			// ajax to incr num likes
+			// TODO: ajax to incr num likes
 			isLiked = true;
 			numberLikes = numberLikes + 1;
 			$("#likeButton").val("Unlike this drink");
@@ -109,15 +113,31 @@ $(document).on('pageinit', '#drinkPage', function() {
 		
 });
 
-$(document).on('pageinit', '#commentForm', function() { 
+$(document).on('pageshow', '#commentPage', function() {
+	
+	$("#nameInputField").val("");
+	$("#commentTextArea").val("");
 	$("#submitCommentButton").click(function() {
-		var drinkId = $("#commentForm").data("drinkid");
-		var addCommentURL = "addComment.php";
+		var drinkId = $("#drinkPage").data("drinkid");
+		var addCommentURL = "php/saveComment.php";
 		$.post(
 			addCommentURL,
-			{ id: drinkId, user: $("#nameInputField").val(), comment: $("#commentTextArea").val() },
+			{ id: drinkId, nameInputField: $("#nameInputField").val(), commentTextArea: $("#commentTextArea").val() },
 			function(data) {
-				//$.mobile.changePage("../drink.php?id=" + drinkId);
+				var getCommentURL = "php/getComments.php";
+				$.post(
+					getCommentURL,
+					{ id: drinkId },
+					function(resp) {
+						$("#drinkPage #commentDiv").empty();
+						$.each(resp, function(key, value) {
+							var obj = $.parseJSON(value);
+							var commentStr = "<p>" + obj.username + " (" + obj.time + "): " + obj.comment + "</p>";
+							$("#drinkPage #commentDiv").append(commentStr);
+						});
+					},
+					"json"
+				);			
 			}
 		);
 	});
