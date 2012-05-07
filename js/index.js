@@ -185,6 +185,7 @@ $(document).on('pageinit', '#beer, #juice, #liquor, #soda, #wine, #misc', functi
 			$('.counterDisplay').css('height', $('.badges:first').height());
 			$('.counterDisplay').css('margin-top', $('.counterDisplay').height()/5);
 			$('.counterDisplay').text(sessionStorage['totalCount']);
+			$(".counterDisplay, .badges").effect("pulsate", {times: 2}, 400);
 		}
 	});
 });
