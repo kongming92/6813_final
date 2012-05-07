@@ -46,19 +46,17 @@ $(document).on('pageinit', '#namePage', function() {
 $(document).on('pageinit', '#drinkPage', function() {
 	var isShowingComments = true;
 	var currentComments;
-	var firstComment = true;
 	$("#showHideComments").tap(function() {
+		if ($(this).text().indexOf("Hide") != -1) {
+			console.log("showing true");
+			isShowingComments = true;
+		}
 		if (isShowingComments) {
 			currentComments = $("#commentDiv").html();
-			console.log("HIDING");
-			console.log($("#commentDiv").html());
-			console.log(currentComments);
 			$("#commentDiv").empty();
 			$(this).text("(Show comments)")
 			isShowingComments = false;
 		} else {
-			console.log("SHOWING");
-			console.log(currentComments);
 			$("#commentDiv").html(currentComments);
 			$(this).text("(Hide comments)");
 			isShowingComments = true;
@@ -69,6 +67,7 @@ $(document).on('pageinit', '#drinkPage', function() {
 	var first = true;
 	var numberLikes = 0;
 	$("#likeButton").tap(function() {
+		var drinkId = $("#drinkPage").data("drinkid");
 		if (first) {
 			numberLikes = $("#drinkPage").data("rating");
 			first = false;
@@ -87,7 +86,15 @@ $(document).on('pageinit', '#drinkPage', function() {
 			$("#likeButton").button("refresh");
 		}
 		
-		// ajax to get num likes
+		var getRatingURL = "php/getRating.php";
+		$.post(
+			getRatingURL,
+			{ id : drinkId },
+			function(data) {
+			
+			}
+		);
+		
 		$("#drinkRating").text(numberLikes + " people like this drink.");
 		
 	});

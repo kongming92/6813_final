@@ -4,13 +4,16 @@
 	mysql_select_db("fat_charles");
 	
 	$drinkid = $_POST["id"];
-	$rating = 0;
+	$rating = 100;
 	$ratings_query = mysql_query("SELECT rating FROM ratings WHERE id=$drinkid");
 	$row = mysql_fetch_assoc($ratings_query);
+	echo json_encode($row);
+	/*
 	if (isset($row["rating"])) {
 		$rating = $row["rating"];
 	}
 	
-	echo json_encode(array("rating" => $rating));
-
+	echo json_encode(array("id" => $drinkid, "rating" => $rating));
+	*/
+	mysql_close($con);
 ?>
