@@ -3,18 +3,46 @@
 	
 	$drinkid = $_GET["id"];
 	
-	//$_SESSION['recent'] = array(3,2);
 	if(isset($_SESSION['recent'])){
 		$_SESSION['recent'][] = $drinkid;
-	}
-	else{
+	} else{
 		$_SESSION['recent'] = array($drinkid);
 	}
-		
-	$name = array(1 => "MartiniX", "Cranberry Delight", "Fat Charles Special");
-	$ratings = array(1=> 34, 17, -3);
-	$ingredients = array("3 shots vodka", "4 oz. cranberry juice", "1 oz. pineapple juice");
-	$instructions = "Pour the vodka over ice in a cup, followed by cranberry juice. Add pineapple juice slowly, to taste.";
+	
+	$drink_name = "Unidentified Drink";
+	$ingredients = array();
+	$rating = 0;
+	$instructions = "No instructions exist for this drink.";
+
+	$con = mysql_connect("localhost","fat_charles_user","fat_charles");
+	if (!$con){
+		die("Could not connect: " . mysql_error());
+	}
+
+	mysql_select_db("fat_charles_db");
+	
+	$name_query = mysql_query("SELECT drink_name FROM ingredients WHERE id=$drinkid LIMIT 1");
+	$row = mysql_fetch_array($name_query);
+	if (isset($row["drink_name"])) {
+		$drink_name = $row["drink_name"];
+	}
+	
+	$ingredients_query = mysql_query("SELECT amount, ingredient FROM ingredients WHERE id=$drinkid");
+	while ($row = mysql_fetch_array($ingredients_query)) {
+		$ingredients[] = $row["amount"] . " " . $row["ingredient"];
+	}
+	
+	$ratings_query = mysql_query("SELECT rating FROM ratings WHERE id=$drinkid");
+	$row = mysql_fetch_array($ratings_query);
+	if (isset($row["rating"])) {
+		$rating = $row["rating"];
+	}
+	
+	$instructions_query = mysql_query("SELECT instructions FROM instructions WHERE id=$drinkid");
+	$row = mysql_fetch_array($instructions_query);
+	if (isset($row["instructions"])) {
+		$instructions = $row["instructions"];
+	}
 	
 ?>
 
@@ -34,20 +62,21 @@
 		<script type="text/javascript">
 			$(document).on("pageinit", function() {
 				$("#drinkPage").data("drinkid", <?php echo $drinkid; ?>);
-				$("#drinkPage").data("rating", <?php echo $ratings[$drinkid]; ?>);
+				$("#drinkPage").data("rating", <?php echo $rating; ?>);
 			});
 		</script>
 			
 			<div data-role="header">
 			<a href="index.php" data-type="button" data-icon="arrow-l" data-rel="back">Back</a>
-			<h1><?php echo $name[$drinkid]; ?></h1>
+			<h1><?php echo $drink_name; ?></h1>
 		</div>
 
 		<div data-role="content">
 			<div id="ratings">
-				<h4 id="drinkRating"><?php echo $ratings[$drinkid] . " people like this drink" ?></h4>
-				<input type="button" id="likeButton" value="Like this drink" />
-
+				<h4 id="drinkRating"><?php echo $rating . " people like this drink" ?></h4>
+				<div data-role="controlgroup">
+					<input type="button" id="likeButton" value="Like this drink" />
+				</div>
 			</div>
 			
 			<div id="ingredients">
@@ -60,19 +89,22 @@
 				?>
 				</ul>
 			</div>
+			
 			<div id="instructions">
 				<h3>Instructions</h3>
 				<p><?php echo $instructions; ?></p>
 			</div>
 			
 			<div id="comments">
-				<div data-role="controlgroup"><?php echo '<a href="php/commentForm.php?id=' . $drinkid . '&name=' . $name[$drinkid] . '" data-role="button">Add a Comment</a>'; ?></div>
 				<div id="commentHeaderDiv">
 					<h3>Comments</h3>
-				</div>
-				<div id="showHideCommentsDiv">
 					<a href="#" id="showHideComments">(Hide comments)</a>
 				</div>
+				<br />
+				<div data-role="controlgroup">
+					<input type="button" id="commentButton" value="Leave a comment" />
+				</div>
+				
 				<div id="commentDiv">
 					<?php
 						$comments = array(
@@ -88,7 +120,7 @@
 						}
 						
 						foreach ($comments as $comment) {
-							echo "<p>" . $comment["user"] . " (" . $comment["comment"] . ")" . ": " . $comment["time"] . "</p>";
+							echo "<p>" . $comment["user"] . " (" . $comment["time"] . ")" . ": " . $comment["comment"] . "</p>";
 						}
 					
 					?>
@@ -100,5 +132,6 @@
 		</div><!-- /content -->
 
 	</div><!-- /page -->
+	<?php mysql_close($con); ?>
 	</body>
 </html>

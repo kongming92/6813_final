@@ -28,8 +28,8 @@ $(document).on('pageinit', '#namePage', function() {
 			function(data) {
 				$.each(data, function(key, value) {
 					var obj = $.parseJSON(value);
-					var itemStr = "<li><a href=\"drink.php?id=" + key + "\">" + obj.name;
-					itemStr += "<span class=\"ui-li-count\">" + obj.rating + "</span></a></li>";
+					var itemStr = "<li><a href=\"drink.php?id=" + obj.id + "\">" + obj.name;
+					itemStr += "<span class=\"ui-li-count\">" + obj.rating + " likes</span></a></li>";
 					$("#resultsList").append(itemStr);						
 				});
 				$("#resultsList").listview("refresh");

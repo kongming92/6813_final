@@ -47,3 +47,12 @@ body {
 	z-index:3;
 	text-align:center;
 }
+
+#drinkPage h3 {
+	display: inline;
+}
+
+#drinkPage #showHideComments {
+	font-style: italic;
+	font-size: 70%;
+}
