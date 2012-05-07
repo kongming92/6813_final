@@ -32,8 +32,8 @@ $(document).on('pageinit', '#namePage', function() {
 			function(data) {
 				$.each(data, function(key, value) {
 					var obj = $.parseJSON(value);
-					var itemStr = "<li><a href=\"drink.php?id=" + obj.id + "\">" + obj.name;
-					itemStr += "<span class=\"ui-li-count\">" + obj.rating + " likes</span></a></li>";
+					var itemStr = "<li><a href=\"drink.php?id=" + key + "\">" + obj.name;
+					itemStr += "<span class=\"ui-li-count\">" + obj.rating + "</span></a></li>";
 					$("#resultsList").append(itemStr);						
 				});
 				$("#resultsList").listview("refresh");
@@ -113,8 +113,6 @@ $(document).on('pageshow', '#drinkPage', function() {
 		$("#drinkRating").text(numberLikes + " people like this drink.");
 		
 	});
-	
-		
 });
 
 $(document).on('pageshow', '#commentPage', function() {
@@ -153,9 +151,10 @@ $(document).on('pageinit', '#beer, #juice, #liquor, #soda, #wine, #misc', functi
 		console.log('session storage for count initialized');
 	}
 		
-	$('label').click(function(e){
+	//$(this).find('input[type="checkbox"]').bind('change', function(e, ui){
+	$(this).find('label').click(function(e) {
 		//SOME STUFF RELATED TO SESSION STORAGE
-		e.preventDefault();
+		//e.preventDefault();
 		var id = $(this).attr("for");
 		var text = $(this).text();
 		//console.log(id + " " + text);
