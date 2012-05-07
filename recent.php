@@ -3,10 +3,25 @@
 session_start();
 $id_array = $_SESSION['recent'];
 $id_array = array_unique(array_reverse($id_array));
+$con = mysql_connect("localhost", "fat_charles_user", "fat_charles");
+mysql_select_db("fat_charles_db");
 
-$name = array(1 => "MartiniX", "Cranberry Delight", "Fat Charles Special");
-$ratings = array(1 => "+34", "+17", "-3");
+$results = array();
+
+foreach ($id_array as $thisid) {
+	$recent_query = mysql_query("SELECT ingredients.drink_name, ratings.rating FROM ingredients INNER JOIN ratings USING(id) WHERE ingredients.id=$thisid LIMIT 1");
+	$row = mysql_fetch_assoc($recent_query);
+	if (isset($row["drink_name"])) {
+		$this_rating = 0;
+		if (isset($row["rating"])) {
+			$this_rating = $row["rating"];
+		}
+		$results[] = array("id" => $thisid, "name" => $row["drink_name"], "rating" => $this_rating);
+	}
+}
+
 ?>	
+
 <!doctype html>
 <html>
 	<head>
@@ -29,12 +44,16 @@ $ratings = array(1 => "+34", "+17", "-3");
 		<ul data-role="listview" data-inset="true" id="resultsList">
 
 <?php
-
-foreach($id_array as $id){
-	$drink = $name[$id];
-	$rating = $ratings[$id];
-	echo "<li><a href='drink.php?id=$id' >$drink<span class='ui-li-count'>$rating</span></a></li>";
+$id_array = array(1,2,3);
+foreach($results as $result){
+	$id = $result["id"];
+	$name = $result["name"];
+	$rating = $result["rating"];
+	echo "<li><a href='drink.php?id=$id' data-ajax='false'>$name<span class='ui-li-count'>$rating likes</span></a></li>";
 }
+
+mysql_close($con);
+
 ?>
 
 		</ul>
