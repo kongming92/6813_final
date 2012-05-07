@@ -66,7 +66,7 @@
 			});
 		</script>
 			
-			<div data-role="header">
+		<div data-role="header">
 			<a href="index.php" data-type="button" data-icon="arrow-l" data-rel="back">Back</a>
 			<h1><?php echo $drink_name; ?></h1>
 		</div>
@@ -132,6 +132,22 @@
 		</div><!-- /content -->
 
 	</div><!-- /page -->
+	
+	<div data-role="page" id="commentPage">
+	
+		<div data-role="header">
+			<h1><?php echo $drink_name; ?></h1>
+		</div>
+		
+		<div data-role="content">
+		
+			<h3>Leave a comment for <?php echo $drink_name; ?></h3>
+			<input type="text" id="nameInputField" placeholder="Your nickname" /><br />
+			<textarea id="commentTextArea" placeholder="Enter your comment here"></textarea>
+		
+		</div>
+	
+	</div><!-- /page ->
 	<?php mysql_close($con); ?>
 	</body>
 </html>
