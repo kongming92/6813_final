@@ -131,6 +131,7 @@ $(document).on('pageinit', '#beer, #juice, #liquor, #soda, #wine, #misc', functi
 		
 	$('label').click(function(e){
 		//SOME STUFF RELATED TO SESSION STORAGE
+		e.preventDefault();
 		var id = $(this).attr("for");
 		var text = $(this).text();
 		//console.log(id + " " + text);
@@ -152,9 +153,15 @@ $(document).on('pageinit', '#beer, #juice, #liquor, #soda, #wine, #misc', functi
 			$('.counterDisplay').text('');
 		} else {
 			$('.badges').css('visibility', 'visible');
-			$('.counterDisplay').css('top', $('.badges:first').position().top);
-			$('.counterDisplay').css('left', $('.badges:first').position().left);
-			$('.counterDisplay').text($(sessionStorage['totalCount']));
+			$('.badges').css('top', $(this).children('div[data-role="header"]').children('a:last').position().top);
+			$('.badges').css('left', $(this).children('div[data-role="header"]').children('a:last').position().left-$('.badges:first').width());
+			
+			$('.counterDisplay').css('top', $(this).children('div[data-role="header"]').children('img').position().top);
+			$('.counterDisplay').css('left', $(this).children('div[data-role="header"]').children('img').position().left);
+			$('.counterDisplay').css('width', $('.badges:first').width());
+			$('.counterDisplay').css('height', $('.badges:first').height());
+			$('.counterDisplay').css('margin-top', $('.counterDisplay').height()/5);
+			$('.counterDisplay').text(sessionStorage['totalCount']);
 		}
 	});
 });
