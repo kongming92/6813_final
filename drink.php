@@ -119,7 +119,7 @@
 				</div>
 				
 				<div id="commentDiv">
-					<?php 
+					<?php
 						foreach ($comments as $comment) {
 							echo $comment;
 						}

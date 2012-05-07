@@ -43,19 +43,23 @@ $(document).on('pageinit', '#namePage', function() {
 	});
 });
 
-$(document).on('pageinit', '#drinkPage', function() {
+$(document).on('pageshow', '#drinkPage', function() {
 	var isShowingComments = true;
 	var currentComments;
 	var firstComment = true;
-
-	$("#showHideComments").tap(function() {
+	$("#showHideComments").text("(Hide comments)");
+	$(this).find("#showHideComments").tap(function() {
 		if (isShowingComments) {
 			currentComments = $("#commentDiv").html();
+			console.log("HIDING");
+			console.log($("#commentDiv").html());
+			console.log(currentComments);
 			$("#commentDiv").empty();
 			$(this).text("(Show comments)")
 			isShowingComments = false;
 		} else {
-			
+			console.log("SHOWING");
+			console.log(currentComments);
 			$("#commentDiv").html(currentComments);
 			/*
 			$(this).parent().find(".ui-btn-text").text("Hide Comments");

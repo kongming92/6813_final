@@ -1,6 +1,6 @@
 <?php
 	
-    $drinkid = $_POST["id"];
+    	$drinkid = $_POST["id"];
         $con = mysql_connect("localhost", "fat_charles_user", "fat_charles");
         mysql_select_db("fat_charles_db");
        
@@ -19,6 +19,7 @@
        
         echo json_encode($comments);
 		
+		mysql_close($con);
 	
 ?>
 
