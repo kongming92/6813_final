@@ -7,6 +7,9 @@ $.ajaxSetup( {
 
 $(document).on('pageshow', '#homePage', function() {//can add a selector
 	$('div [data-role="controlgroup"]').addClass('ui-shadow');
+});
+
+$(document).on('pageinit', '#homePage', function() {
 	$("a").tap(function() {
 		var likes = sessionStorage.getItem("likes");
 		var userCommentHist = sessionStorage.getItem("userComment");
@@ -28,7 +31,7 @@ $(document).on('pageinit', '#namePage', function() {
 		}
 	});
 	$("#searchButton").click(function() {
-		$("#resultsList").empty();
+		$("#searchResults").empty();
 		var searchString = $("#drinkName").val();
 		var searchURL = "php/searchByName.php";
 		if ($.trim(searchString) == "") {
@@ -38,13 +41,18 @@ $(document).on('pageinit', '#namePage', function() {
 			searchURL,
 			{ param : searchString },
 			function(data) {
-				$.each(data, function(key, value) {
-					var obj = $.parseJSON(value);
-					var itemStr = "<li><a href=\"drink.php?id=" + obj.id + "\" data-ajax=\"false\">" + obj.name;
-					itemStr += "<span class=\"ui-li-count\">" + obj.rating + "</span></a></li>";
-					$("#resultsList").append(itemStr);						
-				});
-				$("#resultsList").listview("refresh");
+				if (data.length == 0) {
+					$("#searchResults").append("<p>No drinks matched your search input</p>");
+				} else {
+					$("#searchResults").append("<ul data-role=\"listview\" data-inset=\"true\" id=\"resultsList\"></ul>");
+					$.each(data, function(key, value) {
+						var obj = $.parseJSON(value);
+						var itemStr = "<li><a href=\"drink.php?id=" + obj.id + "\" data-ajax=\"false\">" + obj.name;
+						itemStr += "<span class=\"ui-li-count\">" + obj.rating + "</span></a></li>";
+						$("#resultsList").append(itemStr);						
+					});
+					$("#resultsList").listview();
+				}
 			},
 			"json"
 		);
@@ -126,7 +134,6 @@ $(document).on('pageinit', '#drinkPage', function() {
 });
 
 $(document).on('pageshow', '#drinkPage', function() {
-	console.log("EXT SHOW DONE.");
 	var likes = sessionStorage.getItem("likes");
 	if (likes != null) {
 		likes = JSON.parse(likes);
@@ -152,29 +159,36 @@ $(document).on('pageshow', '#commentPage', function() {
 $(document).on('pageinit', '#commentPage', function() {
 	$("#submitCommentButton").click(function() {
 		var drinkId = $("#drinkPage").data("drinkid");
-		sessionStorage.setItem("userComment", $("#nameInputField").val());
 		var addCommentURL = "php/saveComment.php";
-		$.post(
-			addCommentURL,
-			{ id: drinkId, nameInputField: $("#nameInputField").val(), commentTextArea: $("#commentTextArea").val() },
-			function(data) {
-				var getCommentURL = "php/getComments.php";
-				$.post(
-					getCommentURL,
-					{ id: drinkId },
-					function(resp) {
-						$("#drinkPage #commentDiv").empty();
-						$.each(resp, function(key, value) {
-							var obj = $.parseJSON(value);
-							var commentStr = "<p>" + obj.username + " (" + obj.time + "): " + obj.comment + "</p>";
-							$("#drinkPage #commentDiv").append(commentStr);
-							$("#drinkPage #showHideComments").text("(Hide comments)");
-						});
-					},
-					"json"
-				);			
-			}
-		);
+		var name = $("#nameInputField").val();
+		var commentText = $("#commentTextArea").val();
+		if ($.trim(name) == "" || $.trim(commentText) == "") {
+			console.log("EMPTY");
+		} else {
+			sessionStorage.setItem("userComment", name);
+			$.post(
+				addCommentURL,
+				{ id: drinkId, nameInputField: name, commentTextArea: commentText },
+				function(data) {
+					var getCommentURL = "php/getComments.php";
+					$.post(
+						getCommentURL,
+						{ id: drinkId },
+						function(resp) {
+							$("#drinkPage #commentDiv").empty();
+							$.each(resp, function(key, value) {
+								var obj = $.parseJSON(value);
+								var commentStr = "<p>" + obj.username + " (" + obj.time + "): " + obj.comment + "</p>";
+								$("#drinkPage #commentDiv").append(commentStr);
+								$("#drinkPage #showHideComments").text("(Hide comments)");
+							});
+						},
+						"json"
+					);			
+				}
+			);
+			$.mobile.changePage($("#drinkPage"));
+		}
 	});
 });
 			

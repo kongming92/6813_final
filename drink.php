@@ -142,7 +142,7 @@
 			<textarea id="commentTextArea" placeholder="Enter your comment here"></textarea>
 			<br />
 			<div data-role="controlgroup">
-				<a href="#drinkPage" data-role="button" data-rel="back" id="submitCommentButton">Submit Comment</a>
+				<a href="#" data-role="button" id="submitCommentButton">Submit Comment</a>
 			</div>	
 		</div><!-- /content -->
 	
