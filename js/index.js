@@ -46,6 +46,7 @@ $(document).on('pageinit', '#namePage', function() {
 $(document).on('pageinit', '#drinkPage', function() {
 	var isShowingComments = true;
 	var currentComments;
+	
 	$("#showHideComments").tap(function() {
 		if ($(this).text().indexOf("Hide") != -1) {
 			console.log("showing true");
@@ -63,51 +64,87 @@ $(document).on('pageinit', '#drinkPage', function() {
 		}
 	});
 	
-	var isLiked = false;
-	var first = true;
-	var numberLikes = 0;
 	$("#likeButton").tap(function() {
 		var drinkId = $("#drinkPage").data("drinkid");
-		if (first) {
-			numberLikes = $("#drinkPage").data("rating");
-			first = false;
+		var numberLikes = $("#drinkPage").data("rating");
+		var changeRatingURL = "php/changeRating.php";
+
+		var likes = sessionStorage.getItem("likes");
+		if (likes == null) {
+			likes = {};
+		} else {
+			likes = JSON.parse(likes);
 		}
+		var isLiked = drinkId in likes;
+		console.log(isLiked);
 		if (isLiked) {
-			// TODO: ajax to decr num likes
-			isLiked = false;
-			numberLikes = numberLikes - 1;
+			$.post(
+				changeRatingURL,
+				{ id : drinkId, param : "decr" },
+				function(data) { //do nothing 
+				}
+			);	
 			$("#likeButton").val("Like this drink");
 			$("#likeButton").button("refresh");
+			delete likes[drinkId];
 		} else {
-			// TODO: ajax to incr num likes
-			isLiked = true;
-			numberLikes = numberLikes + 1;
+			$.post(
+				changeRatingURL,
+				{ id : drinkId, param : "incr" },
+				function(data) { //do nothing 
+				}
+			);			
 			$("#likeButton").val("Unlike this drink");
 			$("#likeButton").button("refresh");
+			likes[drinkId] = null;
 		}
-		
+		console.log(likes);
+		sessionStorage.setItem("likes", JSON.stringify(likes));
 		var getRatingURL = "php/getRating.php";
 		$.post(
 			getRatingURL,
 			{ id : drinkId },
 			function(data) {
-			
+				var result = parseInt($.parseJSON(data).rating);
+				if (isLiked) {
+					$("#drinkRating").text("You and " + (result-1) + " other people like this drink.");
+				} else {
+					$("#drinkRating").text(result + " people like this drink.");
+				}
 			}
 		);
-		
-		$("#drinkRating").text(numberLikes + " people like this drink.");
-		
+		isLiked = !isLiked;
 	});
 });
 
+$(document).on('pageshow', '#drinkPage', function() {
+	console.log("EXT SHOW DONE.");
+	var likes = sessionStorage.getItem("likes");
+	if (likes != null) {
+		likes = JSON.parse(likes);
+		if ($("#drinkPage").data("drinkid") in likes) {
+			var otherLikes = $("#drinkPage").data("rating") - 1;
+			$("#likeButton").val("Unlike this drink");
+			$("#likeButton").button("refresh");
+			$("#drinkRating").text("You and " + otherLikes + " other people like this drink.");
+		}
+	}
+});
+
 $(document).on('pageshow', '#commentPage', function() {
-	$("#nameInputField").val("");
+	var userCommentHist = sessionStorage.getItem("userComment");
+	if (userCommentHist != null) {
+		$("#nameInputField").val(userCommentHist);
+	} else {
+		$("#nameInputField").val("");
+	}
 	$("#commentTextArea").val("");
 });
 
 $(document).on('pageinit', '#commentPage', function() {
 	$("#submitCommentButton").click(function() {
 		var drinkId = $("#drinkPage").data("drinkid");
+		sessionStorage.setItem("userComment", $("#nameInputField").val());
 		var addCommentURL = "php/saveComment.php";
 		$.post(
 			addCommentURL,
@@ -158,7 +195,7 @@ $(document).on('pageinit', '#beer, #juice, #liquor, #soda, #wine, #misc', functi
 			console.log(sessionStorage['totalCount']);
 		}
 		
-		//UPDATE THE BADGE TEXT ----------------------------__FIX THIS
+		//TODO: UPDATE THE BADGE TEXT ----------------------------__FIX THIS
 		if (sessionStorage['totalCount']==0) {
 			$('.badges').css('visibility', 'hidden');
 			$('.counterDisplay').text('');

@@ -1,7 +1,7 @@
 <?php
 
 	$con = mysql_connect("localhost", "fat_charles_user", "fat_charles") or die(mysql_error());
-	mysql_select_db("fat_charles");
+	mysql_select_db("fat_charles_db");
 	
 	$drinkid = $_POST["id"];
 	$rating = 100;

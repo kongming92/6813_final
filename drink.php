@@ -73,12 +73,10 @@
 	<body>
 	<div data-role="page" id="drinkPage">
 		<script type="text/javascript">
-			$(document).on("pageinit", function() {
-				$("#drinkPage").data("drinkid", <?php echo $drinkid; ?>);
-				$("#drinkPage").data("rating", <?php echo $rating; ?>);
-			});
+			$("#drinkPage").data("drinkid", <?php echo $drinkid; ?>);
+			$("#drinkPage").data("rating", <?php echo $rating; ?>);
+			console.log("INT DONE");
 		</script>
-			
 		<div data-role="header">
 			<a href="index.php" data-type="button" data-icon="arrow-l" data-rel="back">Back</a>
 			<h1><?php echo $drink_name; ?></h1>
@@ -86,7 +84,7 @@
 
 		<div data-role="content">
 			<div id="ratings">
-				<h4 id="drinkRating"><?php echo $rating . " people like this drink" ?></h4>
+				<h4 id="drinkRating"><?php echo $rating . " people like this drink." ?></h4>
 				<div data-role="controlgroup">
 					<input type="button" id="likeButton" value="Like this drink" />
 				</div>
