@@ -239,7 +239,7 @@ $(document).on('pageshow', '#bin', function() {
 	$("#binList").empty();
 	$.each(sessionStorage, function(k, v)	{
 		var id = sessionStorage.key(k);
-		var liString = "<li id=" + id + ">" + sessionStorage[id] + "<div class=\"binRemove\"><input type=\"button\" class=\"binRemoveButton\" data-icon=\"delete\" data-inline=\"true\" data-mini=\"true\" data-iconpos=\"notext\" /></div></li>";
+		var liString = "<li id=" + id + ">" + sessionStorage[id] + "<div class='binRemove'><input type='button' class='binRemoveButton' data-icon='delete' data-inline='true' data-mini='true' data-iconpos='notext' /></div></li>";
 		$("#binList").append(liString);
 	});
 	$("#binList").listview("refresh");
