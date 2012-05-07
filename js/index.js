@@ -43,12 +43,11 @@ $(document).on('pageinit', '#namePage', function() {
 	});
 });
 
-$(document).on('pageshow', '#drinkPage', function() {
+$(document).on('pageinit', '#drinkPage', function() {
 	var isShowingComments = true;
 	var currentComments;
 	var firstComment = true;
-	$("#showHideComments").text("(Hide comments)");
-	$(this).find("#showHideComments").tap(function() {
+	$("#showHideComments").tap(function() {
 		if (isShowingComments) {
 			currentComments = $("#commentDiv").html();
 			console.log("HIDING");
@@ -61,27 +60,6 @@ $(document).on('pageshow', '#drinkPage', function() {
 			console.log("SHOWING");
 			console.log(currentComments);
 			$("#commentDiv").html(currentComments);
-			/*
-			$(this).parent().find(".ui-btn-text").text("Hide Comments");
-			var commentURL = "php/getComments.php";
-			var drinkId = $("#drinkPage").data("drinkid");
-			$.post(
-				commentURL,
-				{ param : drinkId },
-				function(data) {
-					if (data.length > 0) {
-						$.each(data, function(key, value) {
-							var obj = $.parseJSON(value);
-							var commentStr = "<p>" + obj.user + " (" + obj.time + ")" + ": " + obj.comment + "</p>";
-							$("#commentDiv").append(commentStr);
-						});
-					} else {
-						$("#commentDiv").append("<i>There are no comments at this time</i>");
-					}
-				},
-				"json"
-			);
-			*/
 			$(this).text("(Hide comments)");
 			isShowingComments = true;
 		}
@@ -116,9 +94,11 @@ $(document).on('pageshow', '#drinkPage', function() {
 });
 
 $(document).on('pageshow', '#commentPage', function() {
-	
 	$("#nameInputField").val("");
 	$("#commentTextArea").val("");
+});
+
+$(document).on('pageinit', '#commentPage', function() {
 	$("#submitCommentButton").click(function() {
 		var drinkId = $("#drinkPage").data("drinkid");
 		var addCommentURL = "php/saveComment.php";
@@ -136,6 +116,7 @@ $(document).on('pageshow', '#commentPage', function() {
 							var obj = $.parseJSON(value);
 							var commentStr = "<p>" + obj.username + " (" + obj.time + "): " + obj.comment + "</p>";
 							$("#drinkPage #commentDiv").append(commentStr);
+							$("#drinkPage #showHideComments").text("(Hide comments)");
 						});
 					},
 					"json"
