@@ -257,8 +257,8 @@ $(document).on('pageinit', '#beer, #juice, #liquor, #soda, #wine, #misc', functi
 	});
 });
 
-$(document).on('pageshow', '#beer, #juice, #liquor, #soda, #wine, #misc', function() {
-	if(sessionStorage['totalCount']==0) {
+$(document).on('pageshow', '#ingredientsPage, #beer, #juice, #liquor, #soda, #wine, #misc', function() {
+	if(sessionStorage['totalCount']==0 || sessionStorage['totalCount']==undefined) {
 		return ;
 	} else {
 		$('.badges').css('visibility', 'visible');
@@ -318,8 +318,10 @@ $(document).on('pageshow', '#bin', function() {
 	$("#binList").empty();
 	$.each(sessionStorage, function(k, v)	{
 		var id = sessionStorage.key(k);
-		var liString = "<li id=" + id + ">" + sessionStorage[id] + "<div class='binRemove'><input type='button' class='binRemoveButton' data-icon='delete' data-inline='true' data-mini='true' data-iconpos='notext' /></div></li>";
-		$("#binList").append(liString);
+		if(id!='totalCount') {
+			var liString = "<li id=" + id + ">" + sessionStorage[id] + "<div class='binRemove'><input type='button' class='binRemoveButton' data-icon='delete' data-inline='true' data-mini='true' data-iconpos='notext' /></div></li>";
+			$("#binList").append(liString);
+		}
 	});
 	$("#binList").listview("refresh");
 	$(".binRemoveButton").button();
