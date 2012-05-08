@@ -22,6 +22,15 @@ $(document).on('pageinit', '#homePage', function() {
 });
 
 $(document).on('pageinit', '#namePage', function() {
+	var autoCompleteNames = Array();
+	$.post(
+		"php/getAllNames.php",
+		{},
+		function(data) {
+			autoCompleteNames = data;
+		},
+		"json"
+	);
 	$('#drinkName').keypress(function (e) {
 		var code = (e.keyCode? e.keyCode: e.which);
 		if (code==13) {
