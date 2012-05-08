@@ -78,7 +78,7 @@
 			console.log("INT DONE");
 		</script>
 		<div data-role="header">
-			<a href="index.php" data-type="button" data-icon="arrow-l" data-rel="back">Back</a>
+			<a href="#" data-type="button" data-icon="arrow-l" data-rel="back" data-ajax="false">Back</a>
 			<h1><?php echo $drink_name; ?></h1>
 		</div>
 
