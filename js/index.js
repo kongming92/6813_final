@@ -275,6 +275,7 @@ $(document).on('pageshow', '#ingredientsPage, #beer, #juice, #liquor, #soda, #wi
 
 $(document).on('pageinit', '#submitPage', function() {
 	$('#currIngredient').parent().removeClass('ui-icon-searchfield');
+	$('div[data-role="footer"] a span').css('font-size','1em');
 	
 	var removeBtn = $('tr:last a').detach();
 	$('tr:last').detach();
@@ -303,16 +304,34 @@ $(document).on('pageinit', '#submitPage', function() {
 		$('input').val('');
 	});*/
 	
-	$('#submitDrink').click(function() { //what happens when you click submit the drink.
+	$('#clearDrink').click(function() { //what happens when you click submit the drink.
+		var header = $('table tr:first').detach();
+		var last = $('table tr:last').detach();
+		$.each($('table tr'), function(i, elem) {
+			$(this).remove();
+		});
+		$('table').append(header);
+		$('table').append(last);
+		$('textarea').remove();
+		$('div[data-role="content"]').append($('<textarea></textarea>', {
+			name:"instructions",
+			id: 'instructionsText'
+		}).textinput());
+	});
+	$('#submitDrink').click(function() {
 		alert('Successfully submitted drink');
 		var header = $('table tr:first').detach();
 		var last = $('table tr:last').detach();
 		$.each($('table tr'), function(i, elem) {
 			$(this).remove();
 		});
-		$('textarea').val('');
 		$('table').append(header);
 		$('table').append(last);
+		$('textarea').remove();
+		$('div[data-role="content"]').append($('<textarea></textarea>', {
+			name:"instructions",
+			id: 'instructionsText'
+		}).textinput());
 	});
 });
 
