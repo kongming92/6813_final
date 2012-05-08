@@ -6,7 +6,6 @@ $.ajaxSetup( {
 });
 $.mobile.pushStateEnabled = false;
 
-
 $(document).on('pageinit', '#homePage', function() {
 	$('div [data-role="controlgroup"]').addClass('ui-shadow');
 	$("a").tap(function() {
@@ -221,7 +220,7 @@ $(document).on('pageinit', '#beer, #juice, #liquor, #soda, #wine, #misc', functi
 	//$(this).find('input[type="checkbox"]').bind('change', function(e, ui){
 	$(this).find('label').on('vclick', function(e) {
 		//SOME STUFF RELATED TO SESSION STORAGE
-		//e.preventDefault();
+		
 		var id = $(this).attr("for");
 		var text = $(this).text();
 		//console.log(id + " " + text);
@@ -237,7 +236,7 @@ $(document).on('pageinit', '#beer, #juice, #liquor, #soda, #wine, #misc', functi
 			console.log(sessionStorage['totalCount']);
 		}
 		
-		//TODO: UPDATE THE BADGE TEXT ----------------------------__FIX THIS
+		//UPDATES THE BADGE TEXT
 		if (sessionStorage['totalCount']==0) {
 			$('.badges').css('visibility', 'hidden');
 			$('.counterDisplay').text('');
@@ -275,6 +274,8 @@ $(document).on('pageshow', '#ingredientsPage, #beer, #juice, #liquor, #soda, #wi
 });
 
 $(document).on('pageinit', '#submitPage', function() {
+	$('#currIngredient').parent().removeClass('ui-icon-searchfield');
+	
 	var removeBtn = $('tr:last a').detach();
 	$('tr:last').detach();
 	$('#addIngredient').click( function() {
@@ -293,13 +294,14 @@ $(document).on('pageinit', '#submitPage', function() {
 		var inputRow = $('table tr:last').detach();
 		$('table').append(row);
 		$('table').append(inputRow);
-		$('#removeIngredient').triggerHandler('click');
+		$('#currIngredient').val('');
+		//$('#removeIngredient').triggerHandler('click');
 		$('input').focus();
 	});
 	
-	$('#removeIngredient').click(function() { //this just takes care of clearing it. this is the handler for when you hit "Clear".
+	/*$('#removeIngredient').click(function() { //this just takes care of clearing it. this is the handler for when you hit "Clear".
 		$('input').val('');
-	});
+	});*/
 	
 	$('#submitDrink').click(function() { //what happens when you click submit the drink.
 		alert('Successfully submitted drink');
