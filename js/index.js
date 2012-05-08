@@ -4,12 +4,11 @@
 $.ajaxSetup( {
 	cache: false
 });
+$.mobile.pushStateEnabled = false;
 
-$(document).on('pageshow', '#homePage', function() {//can add a selector
-	$('div [data-role="controlgroup"]').addClass('ui-shadow');
-});
 
 $(document).on('pageinit', '#homePage', function() {
+	$('div [data-role="controlgroup"]').addClass('ui-shadow');
 	$("a").tap(function() {
 		var likes = sessionStorage.getItem("likes");
 		var userCommentHist = sessionStorage.getItem("userComment");
@@ -48,7 +47,7 @@ $(document).on('pageinit', '#namePage', function() {
 					$.each(data, function(key, value) {
 						var obj = $.parseJSON(value);
 						var itemStr = "<li><a href=\"drink.php?id=" + obj.id + "\" data-ajax=\"false\">" + obj.name;
-						itemStr += "<span class=\"ui-li-count\">" + obj.rating + "</span></a></li>";
+						itemStr += "<span class=\"ui-li-count\">" + obj.rating + " likes</span></a></li>";
 						$("#resultsList").append(itemStr);						
 					});
 					$("#resultsList").listview();
