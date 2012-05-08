@@ -28,6 +28,10 @@ $(document).on('pageinit', '#namePage', function() {
 		{},
 		function(data) {
 			autoCompleteNames = data;
+			$('#drinkName').autocomplete({
+				minLength:2,
+				source: autoCompleteNames
+			});
 		},
 		"json"
 	);
@@ -37,11 +41,6 @@ $(document).on('pageinit', '#namePage', function() {
 		if (code==13) {
 			$('#searchButton').triggerHandler('click');
 		}
-	});
-	
-	$('#drinkName').autocomplete({
-		minLength:2,
-		source: autoCompleteNames
 	});
 	
 	$("#searchButton").click(function() {
