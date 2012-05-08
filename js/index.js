@@ -31,12 +31,19 @@ $(document).on('pageinit', '#namePage', function() {
 		},
 		"json"
 	);
+	
 	$('#drinkName').keypress(function (e) {
 		var code = (e.keyCode? e.keyCode: e.which);
 		if (code==13) {
 			$('#searchButton').triggerHandler('click');
 		}
 	});
+	
+	$('#drinkName').autocomplete({
+		minLength:2,
+		source: autoCompleteNames
+	});
+	
 	$("#searchButton").click(function() {
 		$("#searchResults").empty();
 		var opts = {
