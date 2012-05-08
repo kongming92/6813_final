@@ -278,16 +278,24 @@ $(document).on('pageinit', '#submitPage', function() {
 	$('div[data-role="footer"] a span').css('font-size','1em');
 	
 	var removeBtn = $('tr:last a').detach();
+	var ingredients = {};
+
 	$('tr:last').detach();
 	$('#addIngredient').click( function() {
 		var row = $('<tr></tr>');
 		var td = $('<td></td>');
+		var text = $('#currIngredient').val();
 		td.text($('#currIngredient').val());
 		row.append(td);
+		ingredients[text] = "AMOUNT";
+		console.log(ingredients);
 		td = $('<td></td>');
 		td.append(removeBtn.clone().click( 
 			function() {
+				var thistext = text;
 				$(this).parent().parent().remove();
+				delete ingredients[thistext];
+				console.log(ingredients);
 			})
 		);
 		row.append(td);
@@ -317,8 +325,28 @@ $(document).on('pageinit', '#submitPage', function() {
 			name:"instructions",
 			id: 'instructionsText'
 		}).textinput());
+		$("#currIngredient").val("");
+		$("#drinkName").val("");
 	});
+	
 	$('#submitDrink').click(function() {
+		var submitURL = "php/submitDrink.php";
+		var ingredientList = Array();
+		var amountList = Array();
+		for (var ingredient in ingredients) {
+			ingredientList.push(ingredient);
+			amountList.push(ingredients[ingredient]);
+		}
+		$.post(
+			submitURL,
+			{ name : $("#drinkName").val(), 'ingredients[]' : ingredientList, 'amounts[]' : amountList, instructions : $("#instructionsText").val() },
+			function(data) {
+				var id = data.id;
+				$.mobile.changePage("drink.php?id="+id);
+			},
+			"json"
+		);
+		/*
 		alert('Successfully submitted drink');
 		var header = $('table tr:first').detach();
 		var last = $('table tr:last').detach();
@@ -332,6 +360,7 @@ $(document).on('pageinit', '#submitPage', function() {
 			name:"instructions",
 			id: 'instructionsText'
 		}).textinput());
+		*/
 	});
 });
 
