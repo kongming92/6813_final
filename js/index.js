@@ -289,28 +289,44 @@ $(document).on('pageshow', '#ingredientsPage, #beer, #juice, #liquor, #soda, #wi
 });
 
 $(document).on('pageinit', '#submitPage', function() {
+	//SOME STYLING ON PAGE INIT
+	$('#currIngredient').parent().removeClass('ui-btn-corner-all');
 	$('#currIngredient').parent().removeClass('ui-icon-searchfield');
 	$('div[data-role="footer"] a span').css('font-size','1em');
+	$('#addIngredient').css('margin-left', 'auto');
+	$('#addIngredient').css('margin-right', 'auto');
+	$('#currIngredient').parent().css('padding', '0');
+	$('#currIngredient').parent().css('margin', '2%');
+	$('#currIngredient').css('width', '100%');
+	$('#currIngredient').css('padding', '.4em');
+	$('#currIngredient').parent().addClass('ui-corner-all');
 	
 	var removeBtn = $('tr:last a').detach();
 	var ingredients = {};
 
 	$('tr:last').detach();
 	$('#addIngredient').click( function() {
+		if ($('#currAmount').val()=='' || $('#currIngredient').val()=='') {
+			return;
+		}
 		var row = $('<tr></tr>');
 		var td = $('<td></td>');
-		var text = $('#currIngredient').val();
-		td.text($('#currIngredient').val());
+		var text = $('#currAmount').val();
+		td.text(text);
 		row.append(td);
-		ingredients[text] = "AMOUNT";
-		console.log(ingredients);
+		td = $('<td></td>');
+		text = $('#currIngredient').val();
+		td.text(text);
+		row.append(td);
+//		ingredients[text] = "AMOUNT";
+//		console.log(ingredients);
 		td = $('<td></td>');
 		td.append(removeBtn.clone().click( 
 			function() {
-				var thistext = text;
+//				var thistext = text;
 				$(this).parent().parent().remove();
-				delete ingredients[thistext];
-				console.log(ingredients);
+//				delete ingredients[thistext];
+//				console.log(ingredients);
 			})
 		);
 		row.append(td);
