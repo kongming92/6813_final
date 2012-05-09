@@ -30,7 +30,12 @@ $(document).on('pageinit', '#namePage', function() {
 			autoCompleteNames = data;
 			$('#drinkName').autocomplete({
 				minLength:3,
-				source: autoCompleteNames
+				source: autoCompleteNames,
+				position: {
+					my: "left top",
+					of: $('#drinkName').parent(),
+					at: "right bottom"
+				}
 			});
 		},
 		"json"
