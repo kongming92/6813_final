@@ -34,7 +34,7 @@ $(document).on('pageinit', '#namePage', function() {
 				position: {
 					my: "left top",
 					of: $('#drinkName').parent(),
-					at: "right bottom"
+					at: "left bottom"
 				}
 			});
 		},
