@@ -296,7 +296,7 @@ $(document).on('pageinit', '#submitPage', function() {
 	$('#addIngredient').css('margin-left', 'auto');
 	$('#addIngredient').css('margin-right', 'auto');
 	$('#currIngredient').parent().css('padding', '0');
-	$('#currIngredient').parent().css('margin', '2%');
+	$('#currIngredient').parent().css('margin-left', '3.5%');
 	$('#currIngredient').css('width', '100%');
 	$('#currIngredient').css('padding', '.4em');
 	$('#currIngredient').parent().addClass('ui-corner-all');
@@ -306,26 +306,26 @@ $(document).on('pageinit', '#submitPage', function() {
 
 	$('tr:last').detach();
 	$('#addIngredient').click( function() {
-		if ($('#currAmount').val()=='' || $('#currIngredient').val()=='') {
+		if ($.trim($('#currAmount').val())=='' || $.trim($('#currIngredient').val())=='') {
 			return;
 		}
 		var row = $('<tr></tr>');
 		var td = $('<td></td>');
-		var text = $('#currAmount').val();
+		var text = $.trim($('#currAmount').val());
 		td.text(text);
 		row.append(td);
 		td = $('<td></td>');
-		text = $('#currIngredient').val();
+		text = $.trim($('#currIngredient').val());
 		td.text(text);
 		row.append(td);
-//		ingredients[text] = "AMOUNT";
+		ingredients[text] = $.trim($('#currAmount').val());
 //		console.log(ingredients);
 		td = $('<td></td>');
 		td.append(removeBtn.clone().click( 
 			function() {
-//				var thistext = text;
+				var thistext = text;
 				$(this).parent().parent().remove();
-//				delete ingredients[thistext];
+				delete ingredients[thistext];
 //				console.log(ingredients);
 			})
 		);
@@ -334,14 +334,12 @@ $(document).on('pageinit', '#submitPage', function() {
 		var inputRow = $('table tr:last').detach();
 		$('table').append(row);
 		$('table').append(inputRow);
+		$('#currAmount').val('');
 		$('#currIngredient').val('');
 		//$('#removeIngredient').triggerHandler('click');
-		$('input').focus();
+		$('#currIngredient').focus();
+		$('#currAmount').focus();
 	});
-	
-	/*$('#removeIngredient').click(function() { //this just takes care of clearing it. this is the handler for when you hit "Clear".
-		$('input').val('');
-	});*/
 	
 	$('#clearDrink').click(function() { //what happens when you click submit the drink.
 		var header = $('table tr:first').detach();
@@ -351,16 +349,20 @@ $(document).on('pageinit', '#submitPage', function() {
 		});
 		$('table').append(header);
 		$('table').append(last);
-		$('textarea').remove();
+		$('#instructionsText').remove();
 		$('div[data-role="content"]').append($('<textarea></textarea>', {
 			name:"instructions",
 			id: 'instructionsText'
 		}).textinput());
+		$('#currAmount').val('');
 		$("#currIngredient").val("");
 		$("#drinkName").val("");
 	});
 	
 	$('#submitDrink').click(function() {
+		if ($('#drinkName').val()=='' || $('#instructionsText').val()=='' || Object.keys(ingredients).length) {
+			return;
+		}
 		var submitURL = "php/submitDrink.php";
 		var ingredientList = Array();
 		var amountList = Array();
