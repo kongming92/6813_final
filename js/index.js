@@ -400,6 +400,13 @@ $(document).on('pageinit', '#submitPage', function() {
 		}).textinput());
 		*/
 	});
+	
+	$('#currIngredient').keypress(function(e) {
+		var code = (e.keyCode? e.keyCode: e.which);
+		if (code==13) {
+			$('#addIngredient').triggerHandler('click');
+		}
+	});
 });
 
 $(document).on('pageshow', '#bin', function() {
