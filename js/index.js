@@ -309,6 +309,24 @@ $(document).on('pageinit', '#submitPage', function() {
 	var removeBtn = $('tr:last a').detach();
 	var ingredients = {};
 
+	var autocompleteIngredients = Array();
+	$.post(
+		"php/getAllIngredients.php",
+		{},
+		function(data) {
+			autoCompleteIngredients = data;
+			$('#currIngredient').autocomplete({
+				minLength:3,
+				source: autoCompleteIngredients,
+				position: {
+					my: "left top",
+					of: $('#currIngredient').parent(),
+					at: "left bottom"
+				}
+			});
+		},
+		"json"
+	);
 	$('tr:last').detach();
 	$('#addIngredient').click( function() {
 		if ($.trim($('#currAmount').val())=='' || $.trim($('#currIngredient').val())=='') {
