@@ -29,7 +29,7 @@ $(document).on('pageinit', '#namePage', function() {
 		function(data) {
 			autoCompleteNames = data;
 			$('#drinkName').autocomplete({
-				minLength:2,
+				minLength:3,
 				source: autoCompleteNames
 			});
 		},
