@@ -484,7 +484,7 @@ $(document).on('pageshow', '#searchResults', function() {
 	var searchURL = "php/searchIngredients.php";
 	$.post(
 		searchURL,
-		{ 'ingredients[]' : Object.keys(JSON.parse(sessionStorage.getItem("ingredients"))) },
+		{ 'ingredients[]' : Object.keys(JSON.parse(sessionStorage.getItem("ingredients") || "GIANTPOOPS")) },
 		function(data) {
 			$.each(data, function(key, value) {
 				var obj = $.parseJSON(value);
