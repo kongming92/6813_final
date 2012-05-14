@@ -473,6 +473,7 @@ $(document).on('pageshow', '#bin', function() {
 		}
 		sessionStorage.setItem("ingredients", JSON.stringify(items));
 		sessionStorage.removeItem(id);
+		sessionStorage['totalCount'] = sessionStorage['totalCount']-1;
 		$("#" + id).attr("checked", false);
 		$("#" + id).checkboxradio("refresh");
 	});
