@@ -39,6 +39,7 @@ body {
 }
 
 .badges {
+	position: absolute;
 	visibility:hidden;
 	position:fixed;
 	width:1.5em;
@@ -47,7 +48,7 @@ body {
 }
 
 .counterDisplay {
-	position:fixed;
+	position:absolute;
 	z-index:3;
 	text-align:center;
 }
