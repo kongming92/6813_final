@@ -48,8 +48,12 @@ $(document).on('pageshow', '#namePage', function() {
 						if (event.which != 13) {
 							$("#searchButton").trigger("tap");
 						}
+					},
+				change:
+					function(event, ui) {
+						console.log(event);
+						console.log(ui);
 					}
-				
 			});
 		},
 		"json"
