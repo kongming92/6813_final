@@ -6,6 +6,10 @@ body {
 	text-align:center;
 }
 
+#drinkPage h2 {
+	text-align: center;
+}
+
 #submitPage textarea {
 	width:99%;
 	margin-right:auto;

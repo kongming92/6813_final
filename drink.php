@@ -1,13 +1,5 @@
-<?php
-	session_start();
-	
+<?php	
 	$drinkid = $_GET["id"];
-	
-	if(isset($_SESSION['recent'])){
-		$_SESSION['recent'][] = $drinkid;
-	} else{
-		$_SESSION['recent'] = array($drinkid);
-	}
 	
 	$drink_name = "Unidentified Drink";
 	$ingredients = array();
@@ -75,14 +67,14 @@
 		<script type="text/javascript">
 			$("#drinkPage").data("drinkid", <?php echo $drinkid; ?>);
 			$("#drinkPage").data("rating", <?php echo $rating; ?>);
-			console.log("INT DONE");
 		</script>
 		<div data-role="header">
 			<a href="#" data-type="button" data-icon="arrow-l" data-rel="back" data-ajax="false">Back</a>
-			<h1><?php echo $drink_name; ?></h1>
+			<h1></h1>
 		</div>
 
 		<div data-role="content">
+			<h2><?php echo $drink_name; ?></h2>
 			<div id="ratings">
 				<h4 id="drinkRating"><?php echo $rating . " people like this drink." ?></h4>
 				<div data-role="controlgroup">

@@ -21,7 +21,8 @@ $(document).on('pageinit', '#homePage', function() {
 	});
 });
 
-$(document).on('pageinit', '#namePage', function() {
+$(document).on('pageshow', '#namePage', function() {
+	alert("pageshow");
 	var autoCompleteNames = Array();
 	$.post(
 		"php/getAllNames.php",
@@ -35,20 +36,42 @@ $(document).on('pageinit', '#namePage', function() {
 					my: "left top",
 					of: $('#drinkName').parent(),
 					at: "left bottom"
-				}
+				},
+				select:
+					function(event, ui) {
+						event.preventDefault();
+						$("#drinkName").val(ui.item.value);
+						if (event.which != 13) {
+							$("#searchButton").trigger("tap");
+						}
+					}
+				
 			});
 		},
 		"json"
 	);
+});
+
+$(document).on('pageinit', '#namePage', function() {
+	
+	
+	$(this).keypress(function (e) {
+		var code = (e.keyCode? e.keyCode: e.which);
+		if (code == 13) {
+		//	alert(autoCompleteNames.length);
+		}
+	});
 	
 	$('#drinkName').keypress(function (e) {
 		var code = (e.keyCode? e.keyCode: e.which);
 		if (code==13) {
-			$('#searchButton').triggerHandler('click');
+			alert(autoCompleteNames.length);
+			$('#searchButton').triggerHandler('tap');
 		}
 	});
 	
-	$("#searchButton").click(function() {
+	$("#searchButton").tap(function() {
+		$("#drinkName").autocomplete("close");
 		$("#searchResults").empty();
 		var opts = {
 			  lines: 13, // The number of lines to draw
@@ -97,10 +120,22 @@ $(document).on('pageinit', '#namePage', function() {
 		
 	});
 });
-
+	
 $(document).on('pageinit', '#drinkPage', function() {
 	var isShowingComments = true;
 	var currentComments;
+	var visited = sessionStorage.getItem("visited");
+	if (visited == null) {
+		visited = Array();
+	} else {
+		visited = JSON.parse(visited);
+	}
+	var drinkId = $("#drinkPage").data("drinkid");
+	if (visited.indexOf(drinkId) == -1) {
+		visited.push(drinkId);
+	}
+	sessionStorage.setItem("visited", JSON.stringify(visited));
+	
 	
 	$("#showHideComments").tap(function() {
 		if ($(this).text().indexOf("Hide") != -1) {
@@ -120,7 +155,6 @@ $(document).on('pageinit', '#drinkPage', function() {
 	});
 	
 	$("#likeButton").tap(function() {
-		var drinkId = $("#drinkPage").data("drinkid");
 		var numberLikes = $("#drinkPage").data("rating");
 		var changeRatingURL = "php/changeRating.php";
 
@@ -131,7 +165,6 @@ $(document).on('pageinit', '#drinkPage', function() {
 			likes = JSON.parse(likes);
 		}
 		var isLiked = drinkId in likes;
-		console.log(isLiked);
 		if (isLiked) {
 			$.post(
 				changeRatingURL,
@@ -231,13 +264,11 @@ $(document).on('pageinit', '#commentPage', function() {
 	});
 });
 			
-$(document).on('pageinit', '#beer, #juice, #liquor, #soda, #wine, #misc', function() {
+$(document).on('pageinit', /*'#beer, #juice, #liquor, #soda, #wine, #misc'*/ '.searchableIngredient', function() {
 	if(sessionStorage['totalCount']==undefined) {
 		sessionStorage['totalCount']=0;
 		console.log('session storage for count initialized');
 	}
-		
-	//$(this).find('input[type="checkbox"]').bind('change', function(e, ui){
 	$(this).find('label').on('vclick', function(e) {
 		//SOME STUFF RELATED TO SESSION STORAGE
 		
@@ -402,21 +433,6 @@ $(document).on('pageinit', '#submitPage', function() {
 			},
 			"json"
 		);
-		/*
-		alert('Successfully submitted drink');
-		var header = $('table tr:first').detach();
-		var last = $('table tr:last').detach();
-		$.each($('table tr'), function(i, elem) {
-			$(this).remove();
-		});
-		$('table').append(header);
-		$('table').append(last);
-		$('textarea').remove();
-		$('div[data-role="content"]').append($('<textarea></textarea>', {
-			name:"instructions",
-			id: 'instructionsText'
-		}).textinput());
-		*/
 	});
 	
 	$('#currIngredient').keypress(function(e) {

@@ -39,9 +39,16 @@ while(count($answer) < 40 && count($array) > 0){
 	array_pop($array);
 }
 
-print_r($answer);
+$result = array();
+foreach($answer as $drinkname){
+	$results = mysql_query('select id from instructions where drink_name = "'.$drinkname.'";');
+	list($id) = mysql_fetch_array($results);
+	$results = mysql_query('select rating from ratings where id = "'.$id.'";');
+	list($rating) = mysql_fetch_array($results);
+	$result[] = json_encode(array("id" => $id, "name" => $drinkname, "rating" => $rating));
+}
 
-//$result[] = json_encode(array("id" => $id, "name" => $drinkname, "rating" => $rating));
+echo json_encode($result);
 
 mysql_close($con);
 
