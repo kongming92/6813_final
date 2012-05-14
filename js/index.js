@@ -466,6 +466,7 @@ $(document).on('pageshow', '#bin', function() {
 		liItem.remove();
 		console.log(liItem);
 		console.log(id);
+		sessionStorage['totalCount'] = sessionStorage['totalCount'] -1;
 		var items = sessionStorage.getItem("ingredients");
 		if (items != null) {
 			items = JSON.parse(items);
