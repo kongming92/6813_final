@@ -11,7 +11,7 @@
 
 	</head>
 	<body>
-	<div data-role="page" id="homePage">
+	<div data-role="page" id="recentPage">
 		<div data-role="header">
 			<a href="index.html" data-type="button" data-icon="arrow-l">Home</a><h1></h1>
 		</div>
@@ -19,20 +19,7 @@
 		<div data-role="content">
 			<h2>Recently Viewed Drinks</h2>
 			<ul data-role="listview" data-inset="true" id="resultsList">
-
-<?php
-$id_array = array(1,2,3);
-foreach($results as $result){
-	$id = $result["id"];
-	$name = $result["name"];
-	$rating = $result["rating"];
-	echo "<li><a href='drink.php?id=$id' data-ajax='false'>$name<span class='ui-li-count'>$rating likes</span></a></li>";
-}
-
-mysql_close($con);
-
-?>
-
+			
 		</ul>
 		</div><!-- /content -->
 
