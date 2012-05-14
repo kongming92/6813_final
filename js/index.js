@@ -386,6 +386,8 @@ $(document).on('pageinit', '#submitPage', function() {
 		}
 		var row = $('<tr></tr>');
 		var td = $('<td></td>');
+		td.css('width', '30%');
+		td.css('padding-right', '10%');
 		var text = $.trim($('#currAmount').val());
 		td.text(text);
 		row.append(td);
