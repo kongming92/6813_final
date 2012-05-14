@@ -462,6 +462,7 @@ $(document).on('pageshow', '#bin', function() {
 		console.log(liItem);
 		console.log(id);
 		sessionStorage.removeItem(id);
+		sessionStorage['totalCount'] = sessionStorage['totalCount']-1;
 		$("#" + id).attr("checked", false);
 		$("#" + id).checkboxradio("refresh");
 	});
