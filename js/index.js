@@ -439,7 +439,7 @@ $(document).on('pageinit', '#submitPage', function() {
 	});
 	
 	$('#submitDrink').click(function() {
-		if ($('#drinkName').val()=='' || $('#instructionsText').val()=='' || Object.keys(ingredients).length) {
+		if ($('#drinkName').val()=='' || $('#instructionsText').val()=='' || Object.keys(ingredients).length == 0) {
 			return;
 		}
 		var submitURL = "php/submitDrink.php";
