@@ -26,7 +26,6 @@ $(document).on('pageinit', '#homePage', function() {
 });
 
 $(document).on('pageshow', '#namePage', function() {
-	alert("pageshow");
 	var autoCompleteNames = Array();
 	$.post(
 		"php/getAllNames.php",
@@ -62,17 +61,9 @@ $(document).on('pageshow', '#namePage', function() {
 
 $(document).on('pageinit', '#namePage', function() {
 
-	$(this).keypress(function (e) {
-		var code = (e.keyCode? e.keyCode: e.which);
-		if (code == 13) {
-		//	alert(autoCompleteNames.length);
-		}
-	});
-	
 	$('#drinkName').keypress(function (e) {
 		var code = (e.keyCode? e.keyCode: e.which);
 		if (code==13) {
-			alert(autoCompleteNames.length);
 			$('#searchButton').triggerHandler('tap');
 		}
 	});
@@ -434,17 +425,21 @@ $(document).on('pageinit', '#submitPage', function() {
 		$('table').append(header);
 		$('table').append(last);
 		$('#instructionsText').remove();
-		$('div[data-role="content"]').append($('<textarea></textarea>', {
+		$('#instructionsInputDiv').append($('<textarea></textarea>', {
 			name:"instructions",
 			id: 'instructionsText'
 		}).textinput());
+//$('#instructionsInputDiv').append("<br /><br />");
 		$('#currAmount').val('');
 		$("#currIngredient").val("");
 		$("#drinkName").val("");
+		$("#submitWarning").empty();
 	});
 	
 	$('#submitDrink').click(function() {
+		$("#submitWarning").empty();
 		if ($('#drinkName').val()=='' || $('#instructionsText').val()=='' || Object.keys(ingredients).length == 0) {
+			$("#submitWarning").append("<p style=\"color:red\">Please complete all input fields.</p>");
 			return;
 		}
 		var submitURL = "php/submitDrink.php";
