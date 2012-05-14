@@ -199,9 +199,19 @@ $(document).on('pageinit', '#drinkPage', function() {
 			function(data) {
 				var result = parseInt($.parseJSON(data).rating);
 				if (isLiked) {
-					$("#drinkRating").text("You and " + (result-1) + " other people like this drink.");
+					if (result == 1) {
+						$("#drinkRating").text("You like this drink.");
+					} else if (result == 2) {
+						$("#drinkRating").text("You and one other person like this drink.");
+					} else {
+						$("#drinkRating").text("You and " + (result-1) + " other people like this drink.");
+					}
 				} else {
-					$("#drinkRating").text(result + " people like this drink.");
+					if (result == 1) {
+						$("#drinkRating").text("One person likes this drink.");
+					} else {
+						$("#drinkRating").text(result + " people like this drink.");
+					}
 				}
 			}
 		);
@@ -220,7 +230,7 @@ $(document).on('pageshow', '#drinkPage', function() {
 			if (otherLikes == 0) {
 				$("#drinkRating").text("You like this drink.");
 			} else if (otherLikes == 1) {
-				$("#drinkRating").text("You and 1 other person likes this drink");
+				$("#drinkRating").text("You and 1 other person like this drink");
 			} else{
 				$("#drinkRating").text("You and " + otherLikes + " other people like this drink.");
 			}
