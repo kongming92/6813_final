@@ -11,12 +11,16 @@ $(document).on('pageinit', '#homePage', function() {
 	$("a").tap(function() {
 		var likes = sessionStorage.getItem("likes");
 		var userCommentHist = sessionStorage.getItem("userComment");
+		var visited = sessionStorage.getItem("visited");
 		sessionStorage.clear();
 		if (likes != null) {
 			sessionStorage.setItem("likes", likes);
 		}
 		if (userCommentHist != null) {
 			sessionStorage.setItem("userComment", userCommentHist);
+		}
+		if (visited != null) {
+			sessionStorage.setItem("visited", visited);
 		}
 	});
 });
@@ -213,7 +217,13 @@ $(document).on('pageshow', '#drinkPage', function() {
 			var otherLikes = $("#drinkPage").data("rating") - 1;
 			$("#likeButton").val("Unlike this drink");
 			$("#likeButton").button("refresh");
-			$("#drinkRating").text("You and " + otherLikes + " other people like this drink.");
+			if (otherLikes == 0) {
+				$("#drinkRating").text("You like this drink.");
+			} else if (otherLikes == 1) {
+				$("#drinkRating").text("You and 1 other person likes this drink");
+			} else{
+				$("#drinkRating").text("You and " + otherLikes + " other people like this drink.");
+			}
 		}
 	}
 });
@@ -502,30 +512,24 @@ $(document).on('pageshow', '#recentPage', function() {
 	$("#recentList").empty();
 	var recentId = sessionStorage.getItem("visited");
 	if (recentId == null) {
-		$("#searchResults").append("<p>No drinks matched your search input</p>");
+		$("#recentResults").append("<p>Nothing in your history. Go look at some drinks!</p>");
 	} else {
 		var searchURL = "php/getRecent.php";
 		$.post(
 			searchURL,
 			{ 'id[]' : JSON.parse(recentId) },
 			function (data) {
-				
+				$("#recentResults").append("<ul data-role=\"listview\" data-inset=\"true\" id=\"recentList\"></ul>");
+				$.each(data, function(key, value) {
+					var obj = $.parseJSON(value);
+					var itemStr = "<li><a href=\"drink.php?id=" + obj.id + "\" data-ajax=\"false\">" + obj.name;
+					itemStr += "<span class=\"ui-li-count\">" + obj.rating + " likes</span></a></li>";
+					$("#recentList").append(itemStr);						
+				});
+				$("#recentList").listview();
 			
 			},
 			"json"
 		);
 	}
 });
-
-if (data.length == 0) {
-					$("#searchResults").append("<p>No drinks matched your search input</p>");
-				} else {
-					$("#searchResults").append("<ul data-role=\"listview\" data-inset=\"true\" id=\"resultsList\"></ul>");
-					$.each(data, function(key, value) {
-						var obj = $.parseJSON(value);
-						var itemStr = "<li><a href=\"drink.php?id=" + obj.id + "\" data-ajax=\"false\">" + obj.name;
-						itemStr += "<span class=\"ui-li-count\">" + obj.rating + " likes</span></a></li>";
-						$("#resultsList").append(itemStr);						
-					});
-					$("#resultsList").listview();
-				}

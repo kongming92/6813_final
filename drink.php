@@ -74,9 +74,9 @@
 		</div>
 
 		<div data-role="content">
-			<h2><?php echo $drink_name; ?></h2>
+			<h2 class="centeredTitle"><?php echo $drink_name; ?></h2>
 			<div id="ratings">
-				<h4 id="drinkRating"><?php echo $rating . " people like this drink." ?></h4>
+				<h4 id="drinkRating"><?php if ($rating > 0) { echo $rating . " people like this drink." }?></h4>
 				<div data-role="controlgroup">
 					<input type="button" id="likeButton" value="Like this drink" />
 				</div>

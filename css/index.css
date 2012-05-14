@@ -2,11 +2,11 @@ body {
 	font-family:Arial;
 }
 
-#homePage, #namePage, #ingredientsPage, #commentForm, #submitPage {
+#homePage, #namePage, #ingredientsPage, #commentForm, #submitPage, #recentPage {
 	text-align:center;
 }
 
-#drinkPage h2 {
+.centeredTitle {
 	text-align: center;
 }
 
