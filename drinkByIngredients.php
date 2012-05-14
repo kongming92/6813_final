@@ -24,7 +24,7 @@ print <<<END
 	<body>
 	<div data-role="page" id="ingredientsPage">
 		<div data-role="header">
-			<a href="index.html" data-type="button" data-icon="arrow-l">Home</a>
+			<a href="index.html" data-type="button" data-icon="arrow-l" data-ajax="false">Home</a>
 			<h1>Ingredients</h1>
 			<a href="#bin" data-type="button" data-icon="grid" data-iconpos="right">Selections</a><span class="counterDisplay"></span><img src="img/badgetext.png" class="badges" height="10%" width="10%"></img>
 
@@ -34,10 +34,8 @@ print <<<END
 			<ul data-role="listview">
 END;
 
-$categories = array();
-$results = mysql_query("select distinct category1 from categories;");
-while(list($category) = mysql_fetch_array($results)){
-	$categories[] = $category;
+$categories = array("Beer", "Liquor","Liqueur","Juice","Soda","Wine","Other");
+foreach($categories as $category){
 	echo "<li><a href=\"drinkByIngredients.php#$category\">$category</a></li>";
 }
 /*print <<<END
@@ -73,9 +71,16 @@ print <<<END
                         <ul data-role="listview">
 END;
 
-	$results = mysql_query("select distinct category2 from categories where category1 = '$category';");
+	$results = mysql_query("select distinct category2 from categories where category1 = '$category' order by category2 asc;");
 	while(list($cat2) = mysql_fetch_array($results)){
-		echo "<li><a href=\"drinkByIngredients.php#$category-$cat2\">$cat2</a></li>";
+		if ($cat2 != "Other"){
+			$explode = explode(" ",$cat2);
+			$cat_2 = implode("_",$explode);
+			echo "<li><a href=\"drinkByIngredients.php#$category-$cat_2\">$cat2</a></li>";
+		}
+	}
+	if ($category != "Other"){
+		echo "<li><a href=\"drinkByIngredients.php#$category-Other\">Other</a></li>";
 	}
 
 print <<<END
@@ -93,9 +98,11 @@ END;
 foreach($categories as $category){
 	$results = mysql_query("select distinct category2 from categories where category1 = '$category';");
 	while(list($cat2) = mysql_fetch_array($results)){
+	$explode = explode(" ",$cat2);
+	$cat_2 = implode("_",$explode);
 print <<<END
-        <!-- Start of $category-$cat2 page -->
-        <div data-role="page" id="$category-$cat2" class="searchableIngredient">
+        <!-- Start of $category-$cat_2 page -->
+        <div data-role="page" id="$category-$cat_2" class="searchableIngredient">
                 <div data-role="header">
                         <a href="#" data-type="button" data-icon="arrow-l" data-rel="back">Ingredients</a>
                         <h1>$cat2</h1>
@@ -108,17 +115,12 @@ print <<<END
                                 <fieldset data-role="controlgroup">
 END;
 		
-		$nicknames = array();	
-		$results2 = mysql_query("select distinct nickname from categories where category1 = '$category' and category2 = '$cat2';");
+		$results2 = mysql_query("select distinct nickname from categories where category1 = '$category' and category2 = '$cat2' order by nickname asc;");
 		while(list($nickname) = mysql_fetch_array($results2)){
-			$nicknames[] = $nickname;
-		}
-		
-		asort($nicknames);
-		
-		foreach($nicknames as $nickname){
-			echo "<input type=\"checkbox\" id=\"$nickname\" data-corners=\"false\" />";
-	                echo "<label for=\"$nickname\">$nickname</label>";
+			$explode = explode(" ",$nickname);
+			$nick_name = implode("_",$explode);
+			echo "<input type=\"checkbox\" id=\"$nick_name\" data-corners=\"false\" />";
+	                echo "<label for=\"$nick_name\">$nickname</label>";
 		}
 print <<<END
 				</fieldset>
