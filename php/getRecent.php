@@ -16,7 +16,7 @@ foreach ($id_array as $thisid) {
 		$results[] = json_encode(array("id" => $thisid, "name" => $row["drink_name"], "rating" => $this_rating));
 	}
 }
-mysql_close($con)
+mysql_close($con);
 echo json_encode($results);
 
 ?>	
