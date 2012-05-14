@@ -498,3 +498,35 @@ $(document).on('pageshow', '#searchResults', function() {
 		"json"
 	);
 });
+
+$(document).on('pageshow', '#recentPage', function() {
+	$("#recentList").empty();
+	var recentId = sessionStorage.getItem("visited");
+	if (recentId == null) {
+		$("#searchResults").append("<p>No drinks matched your search input</p>");
+	} else {
+		var searchURL = "php/getRecent.php";
+		$.post(
+			searchURL,
+			{ 'id[]' : JSON.parse(recentId) },
+			function (data) {
+				
+			
+			},
+			"json"
+		);
+	}
+});
+
+if (data.length == 0) {
+					$("#searchResults").append("<p>No drinks matched your search input</p>");
+				} else {
+					$("#searchResults").append("<ul data-role=\"listview\" data-inset=\"true\" id=\"resultsList\"></ul>");
+					$.each(data, function(key, value) {
+						var obj = $.parseJSON(value);
+						var itemStr = "<li><a href=\"drink.php?id=" + obj.id + "\" data-ajax=\"false\">" + obj.name;
+						itemStr += "<span class=\"ui-li-count\">" + obj.rating + " likes</span></a></li>";
+						$("#resultsList").append(itemStr);						
+					});
+					$("#resultsList").listview();
+				}
