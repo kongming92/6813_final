@@ -49,7 +49,6 @@ $(document).on('pageshow', '#namePage', function() {
 							$("#searchButton").trigger("tap");
 						}
 					}
-				
 			});
 		},
 		"json"
