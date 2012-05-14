@@ -269,24 +269,29 @@ $(document).on('pageinit', /*'#beer, #juice, #liquor, #soda, #wine, #misc'*/ '.s
 		sessionStorage['totalCount']=0;
 		console.log('session storage for count initialized');
 	}
+	if (sessionStorage.getItem("ingredients") == null) {
+		sessionStorage.setItem("ingredients", JSON.stringify({}));
+	}	
 	$(this).find('label').on('vclick', function(e) {
 		//SOME STUFF RELATED TO SESSION STORAGE
 		
 		var id = $(this).attr("for");
 		var text = $(this).text();
-		//console.log(id + " " + text);
+		var t = JSON.parse(sessionStorage.getItem("ingredients"));
+
 		if ($("#" + id).attr("checked") == "checked") {
-			sessionStorage[id] = text;
+			t[id]=$.trim(text);
 			sessionStorage['totalCount'] = parseInt(sessionStorage['totalCount']) + 1;
 			console.log('incrementing totalCount');
 			console.log(sessionStorage['totalCount']);
 		} else {
-			sessionStorage.removeItem(id);
+			delete t[text];
 			sessionStorage['totalCount'] = parseInt(sessionStorage['totalCount']) - 1;
 			console.log('decrementing totalCount');
 			console.log(sessionStorage['totalCount']);
 		}
-		
+		sessionStorage.setItem("ingredients", JSON.stringify(t));
+
 		//UPDATES THE BADGE TEXT
 		if (sessionStorage['totalCount']==0) {
 			$('.badges').css('visibility', 'hidden');
@@ -445,13 +450,13 @@ $(document).on('pageinit', '#submitPage', function() {
 
 $(document).on('pageshow', '#bin', function() {
 	$("#binList").empty();
-	$.each(sessionStorage, function(k, v)	{
-		var id = sessionStorage.key(k);
-		if(id!='totalCount') {
-			var liString = "<li id=" + id + ">" + sessionStorage[id] + "<div class='binRemove'><input type='button' class='binRemoveButton' data-icon='delete' data-inline='true' data-mini='true' data-iconpos='notext' /></div></li>";
+	var items = sessionStorage.getItem("ingredients");
+	if (items != null) {
+		$.each(JSON.parse(items), function(k, v)	{
+			var liString = "<li id=" + k + ">" + v + "<div class='binRemove'><input type='button' class='binRemoveButton' data-icon='delete' data-inline='true' data-mini='true' data-iconpos='notext' /></div></li>";
 			$("#binList").append(liString);
-		}
-	});
+		});
+	}
 	$("#binList").listview("refresh");
 	$(".binRemoveButton").button();
 	
@@ -461,6 +466,12 @@ $(document).on('pageshow', '#bin', function() {
 		liItem.remove();
 		console.log(liItem);
 		console.log(id);
+		var items = sessionStorage.getItem("ingredients");
+		if (items != null) {
+			items = JSON.parse(items);
+			delete items[id];
+		}
+		sessionStorage.setItem("ingredients", JSON.stringify(items));
 		sessionStorage.removeItem(id);
 		$("#" + id).attr("checked", false);
 		$("#" + id).checkboxradio("refresh");
@@ -469,15 +480,15 @@ $(document).on('pageshow', '#bin', function() {
 
 $(document).on('pageshow', '#searchResults', function() {
 	$("#resultsList").empty();
-	var searchURL = "php/searchByName.php";
+	var searchURL = "php/searchIngredients.php";
 	$.post(
 		searchURL,
-		{ param : "" },
+		{ 'ingredients[]' : Object.keys(JSON.parse(sessionStorage.getItem("ingredients"))) },
 		function(data) {
 			$.each(data, function(key, value) {
 				var obj = $.parseJSON(value);
-				var itemStr = "<li><a href=\"drink.php?id=" + key + "\">" + obj.name;
-				itemStr += "<span class=\"ui-li-count\">" + obj.rating + "</span></a></li>";
+				var itemStr = "<li><a href=\"drink.php?id=" + obj.id + "\">" + obj.name;
+				itemStr += "<span class=\"ui-li-count\">" + obj.rating + " likes</span></a></li>";
 				$("#resultsList").append(itemStr);						
 			});
 			$("#resultsList").listview("refresh");
