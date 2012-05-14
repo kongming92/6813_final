@@ -15,10 +15,11 @@
 	<body>
 	<div data-role="page" id="submitPage">
 		<div data-role="header" data-position="fixed">
-			<a href="index.html" data-type="button" data-icon="arrow-l" data-ajax="false">Home</a><h1>Submit a Drink</h1>
+			<a href="index.html" data-type="button" data-icon="arrow-l" data-ajax="false">Home</a><h1></h1>
 		</div>
 
 		<div data-role="content">
+			<h2 class="centeredTitle">Submit a Drink</h2>
 			<input type="text" placeholder="Drink Name" id="drinkName"/>
 			<h3>Add Ingredients</h3>
 			<table>
@@ -28,10 +29,9 @@
 					<th style="width:10%;">Action</th>
 				</tr>
 				<tr>
-					<td><input type="text" placeholder="75 ml" id="currAmount" /></td>
-					<td><input type="text" placeholder="Gin" id="currIngredient" data-type="search"/></td>
+					<td><input type="text" placeholder="Amount" id="currAmount" /></td>
+					<td><input type="text" placeholder="Ingredient" id="currIngredient" data-type="search"/></td>
 					<td><a href="#" data-role="button" data-icon="plus" data-iconpos="notext" id="addIngredient"></a>
-					<!--<a href="#" data-role="button" data-icon="delete" data-iconpos="left" id="removeIngredient">Delete</a>--></td>
 				</tr>
 				<tr>
 					<td></td>
@@ -39,13 +39,14 @@
 				</tr>
 			</table>
 			<h3>Add Instructions</h3>
-			<textarea name="instructions" id="instructionsText"></textarea>
+			<textarea name="instructions" id="instructionsText"></textarea><br /><br />
+			<div data-role="controlgroup"><input type="button" id="submitDrink" value="Submit Drink" /></div>
 		</div><!-- /content -->
 		
 		<div data-role="footer" data-position="fixed">
 			<a href="#" data-type="button" data-icon="delete" id="clearDrink" class="ui-btn-left">Clear Drink</a>
 			<h1></h1>
-			<a href="#" data-type="button" data-icon="check" id="submitDrink" class="ui-btn-right">Submit Drink</a>
+			<!--<a href="#" data-type="button" data-icon="check" id="submitDrink" class="ui-btn-right">Submit Drink</a>-->
 		</div>
 
 	</div><!-- /page -->

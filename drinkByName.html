@@ -22,10 +22,12 @@
 
 		<div data-role="content">
 			<h2 class="centeredTitle">Find Drink by Name</h2>
-			<div data-role="fieldcontain" id="search" class="searchClass">
-				<input type="text" id="drinkName" placeholder="Name of Drink" data-type="search" />
-				<input type="button" id="searchButton" data-inline="true" value="Submit" />
+			<div data-role="fieldcontain" id="search" class="searchClass" data-type="horizontal">
+				<span><input type="text" id="drinkName" placeholder="Name of Drink" data-type="search" /></span>	
+				<span><input type="button" id="searchButton" data-inline="true" value="Go" /></span>
 			</div>
+			<br />
+			
 			<div id="searchResults"></div>
 
 		</div>

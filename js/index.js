@@ -57,8 +57,7 @@ $(document).on('pageshow', '#namePage', function() {
 });
 
 $(document).on('pageinit', '#namePage', function() {
-	
-	
+
 	$(this).keypress(function (e) {
 		var code = (e.keyCode? e.keyCode: e.which);
 		if (code == 13) {
@@ -107,7 +106,7 @@ $(document).on('pageinit', '#namePage', function() {
 			function(data) {
 				spinner.stop();
 				if (data.length == 0) {
-					$("#searchResults").append("<p>No drinks matched your search input</p>");
+					$("#searchResults").append("<p>No drinks matched your search input.</p>");
 				} else {
 					$("#searchResults").append("<ul data-role=\"listview\" data-inset=\"true\" id=\"resultsList\"></ul>");
 					$.each(data, function(key, value) {
@@ -246,16 +245,18 @@ $(document).on('pageshow', '#commentPage', function() {
 		$("#nameInputField").val("");
 	}
 	$("#commentTextArea").val("");
+	$("#warningDiv").empty();
 });
 
 $(document).on('pageinit', '#commentPage', function() {
 	$("#submitCommentButton").click(function() {
+		$("#warningDiv").empty();
 		var drinkId = $("#drinkPage").data("drinkid");
 		var addCommentURL = "php/saveComment.php";
 		var name = $("#nameInputField").val();
 		var commentText = $("#commentTextArea").val();
 		if ($.trim(name) == "" || $.trim(commentText) == "") {
-			console.log("EMPTY");
+			$("#warningDiv").prepend("<p style=\"color:red\">Name and comment cannot be blank!</p>");
 		} else {
 			sessionStorage.setItem("userComment", name);
 			$.post(
@@ -500,19 +501,39 @@ $(document).on('pageshow', '#bin', function() {
 });	
 
 $(document).on('pageshow', '#searchResults', function() {
-	$("#resultsList").empty();
+	$("#ingredientsResults").empty();
 	var searchURL = "php/searchIngredients.php";
+	var count = sessionStorage.getItem("totalCount");
+	if (count == null || count == 0) {
+		$("#ingredientsResults").append("<p>No drinks matched your search input.</p>");
+		return;
+	}
+	var ingredients = sessionStorage.getItem("ingredients");
+	if (ingredients != null) {
+		ingredients = JSON.parse(ingredients);
+	} else {
+		$("#ingredientsResults").append("<p>No drinks matched your search input.</p>");
+	}
+	var values = Array();
+	for (ingredient in ingredients) {
+		values.push(ingredients[ingredient]);
+	}
 	$.post(
 		searchURL,
-		{ 'ingredients[]' : Object.keys(JSON.parse(sessionStorage.getItem("ingredients") || '{"GIANTPOOPS": ""}')) },
+		{ 'ingredients[]' : values },
 		function(data) {
-			$.each(data, function(key, value) {
-				var obj = $.parseJSON(value);
-				var itemStr = "<li><a href=\"drink.php?id=" + obj.id + "\">" + obj.name;
-				itemStr += "<span class=\"ui-li-count\">" + obj.rating + " likes</span></a></li>";
-				$("#resultsList").append(itemStr);						
-			});
-			$("#resultsList").listview("refresh");
+			if (data.length == 0) {
+				$("#ingredientsResults").append("<p>No drinks matched your search input.</p>");
+			} else {
+				$("#ingredientsResults").append("<ul data-role=\"listview\" data-inset=\"true\" id=\"resultsList\"></ul>");
+				$.each(data, function(key, value) {
+					var obj = $.parseJSON(value);
+					var itemStr = "<li><a href=\"drink.php?id=" + obj.id + "\" data-ajax=\"false\">" + obj.name;
+					itemStr += "<span class=\"ui-li-count\">" + obj.rating + " likes</span></a></li>";
+					$("#resultsList").append(itemStr);						
+				});
+				$("#resultsList").listview();
+			}
 		},
 		"json"
 	);
@@ -527,7 +548,7 @@ $(document).on('pageshow', '#recentPage', function() {
 		var searchURL = "php/getRecent.php";
 		$.post(
 			searchURL,
-			{ 'id[]' : JSON.parse(recentId) },
+			{ 'id[]' : JSON.parse(recentId).reverse() },
 			function (data) {
 				$("#recentResults").append("<ul data-role=\"listview\" data-inset=\"true\" id=\"recentList\"></ul>");
 				$.each(data, function(key, value) {

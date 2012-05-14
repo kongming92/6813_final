@@ -2,7 +2,7 @@ body {
 	font-family:Arial;
 }
 
-#homePage, #namePage, #ingredientsPage, #commentForm, #submitPage, #recentPage {
+#homePage, #namePage, #ingredientsPage, #commentForm, #submitPage, #recentPage, #searchResults {
 	text-align:center;
 }
 

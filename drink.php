@@ -71,6 +71,7 @@
 		<div data-role="header">
 			<a href="#" data-type="button" data-icon="arrow-l" data-rel="back" data-ajax="false">Back</a>
 			<h1></h1>
+			<a href="index.html" data-type="button" data-icon="home" data-ajax="false">Home</a>
 		</div>
 
 		<div data-role="content">
@@ -82,7 +83,7 @@
 							if ($rating == 1) {
 								echo "1 person likes this drink.";
 							} else {
-								echo $rating . " people like this drink." 
+								echo $rating . " people like this drink.";
 							}
 						} 					
 					?>					
@@ -143,7 +144,9 @@
 			<input type="text" id="nameInputField" placeholder="Your nickname" /><br />
 			<textarea id="commentTextArea" placeholder="Enter your comment here"></textarea>
 			<br />
-			<div data-role="controlgroup">
+			<div data-role="controlgroup" id = "warningDiv">
+			</div>
+			<div data-role="controlgroup" id = "submitCommentDiv">
 				<a href="#" data-role="button" id="submitCommentButton">Submit Comment</a>
 			</div>	
 		</div><!-- /content -->

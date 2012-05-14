@@ -275,15 +275,14 @@ print <<<END
 		</div>
 	</div>
  
-    <!-- Start of search results page: #searchResults -->
+	 <!-- Start of search results page: #searchResults -->
 	<div data-role="page" id="searchResults">
 		<div data-role="header">
-			<a href="drinkByIngredients.php" data-type="button" data-icon="arrow-l">Back</a>
+			<a href="#" data-type="button" data-icon="arrow-l" data-rel="back">Back</a>
 			<h1>Search Results</h1>
 			<a href="#bin" data-type="button" data-icon="grid" data-iconpos="right">Selections</a>
 		</div>
-		<div data-role="content">
-			<ul data-role="listview" data-inset="true" id="resultsList"></ul>
+		<div data-role="content" id="ingredientsResults">
 		</div>
 	</div>
 	</body>
