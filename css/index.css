@@ -41,7 +41,6 @@ body {
 .badges {
 	position: absolute;
 	visibility:hidden;
-	position:fixed;
 	width:1.5em;
 	height:1.5em;
 	z-index:2;
