@@ -23,7 +23,7 @@ print <<<END
 	</head>
 	<body>
 	<div data-role="page" id="ingredientsPage">
-		<div data-role="header">
+		<div data-role="header" data-position="fixed">
 			<a href="index.html" data-type="button" data-icon="arrow-l" data-ajax="false">Home</a>
 			<h1>Ingredients</h1>
 			<a href="#bin" data-type="button" data-icon="grid" data-iconpos="right">Selections</a><span class="counterDisplay"></span><img src="img/badgetext.png" class="badges" height="10%" width="10%"></img>
@@ -50,7 +50,7 @@ print <<<END
 			</ul>
 		</div><!-- /content -->
 		
-		<div data-role="footer" style="text-align:center">
+		<div data-role="footer" style="text-align:center" data-position="fixed">
 			<a href="#searchResults" data-type="button" data-icon="search" data-iconpos="right">Search for Drinks</a>
 		</div>
 
@@ -60,7 +60,7 @@ END;
 foreach($categories as $category){
 print <<<END
 <div data-role="page" id="$category">
-                <div data-role="header">
+                <div data-role="header" data-position="fixed">
                         <a href="#" data-type="button" data-icon="arrow-l" data-rel="back">Ingredients</a>
                         <h1>$category</h1>
                         <a href="#bin" data-type="button" data-icon="grid" data-iconpos="right">Selections</a><span class="counterDisplay"></span><img src="img/badgetext.png" class="badges" height="10%" width="10%"></img>
@@ -87,7 +87,7 @@ print <<<END
                         </ul>
                 </div><!-- /content -->
 
-                <div data-role="footer" style="text-align:center">
+                <div data-role="footer" style="text-align:center" data-position="fixed">
                         <a href="#searchResults" data-type="button" data-icon="search" data-iconpos="right">Search for Drinks</a>
                 </div>
 
@@ -103,7 +103,7 @@ foreach($categories as $category){
 print <<<END
         <!-- Start of $category-$cat_2 page -->
         <div data-role="page" id="$category-$cat_2" class="searchableIngredient">
-                <div data-role="header">
+                <div data-role="header" data-position="fixed">
                         <a href="#" data-type="button" data-icon="arrow-l" data-rel="back">Ingredients</a>
                         <h1>$cat2</h1>
             <a href="#bin" data-type="button" data-icon="grid" data-iconpos="right">Selections</a><span class="counterDisplay"></span><img src="img/badgetext.png" class="badges" height="10%" width="10%"></img>
@@ -127,7 +127,7 @@ print <<<END
 			 </div>
 		</div><!-- /content -->
 		
-		<div data-role="footer" style="text-align:center">
+		<div data-role="footer" style="text-align:center" data-position="fixed">
 			<a href="#searchResults" data-type="button" data-icon="search" data-iconpos="right">Search for Drinks</a>
 		</div>
 	</div><!-- /$category-$cat2 page -->
@@ -264,7 +264,7 @@ END;
 print <<<END
 	<!-- Start of bin page: #bin -->
 	<div data-role="page" id="bin">
-		<div data-role="header">
+		<div data-role="header" data-position="fixed">
 			<a href="#" data-type="button" data-icon="arrow-l" data-rel="back">Back</a>
 			<h1>Your Current Selections</h1>
 		</div>
@@ -272,14 +272,14 @@ print <<<END
 		<div data-role="content">
 			<ul data-role="listview" id="binList"></ul>
 		</div>
-		<div data-role="footer" style="text-align:center">
+		<div data-role="footer" style="text-align:center" data-position="fixed">
 			<a href="#searchResults" data-type="button" data-icon="search" data-iconpos="right">Search for Drinks</a>
 		</div>
 	</div>
  
 	 <!-- Start of search results page: #searchResults -->
 	<div data-role="page" id="searchResults">
-		<div data-role="header">
+		<div data-role="header" data-position="fixed">
 			<a href="#" data-type="button" data-icon="arrow-l" data-rel="back">Back</a>
 			<h1>Search Results</h1>
 			<a href="#bin" data-type="button" data-icon="grid" data-iconpos="right">Selections</a>
