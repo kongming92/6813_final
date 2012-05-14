@@ -307,7 +307,7 @@ $(document).on('pageinit', /*'#beer, #juice, #liquor, #soda, #wine, #misc'*/ '.s
 	});
 });
 
-$(document).on('pageshow', '#ingredientsPage, #beer, #juice, #liquor, #soda, #wine, #misc, .searchableIngredient', function() {
+$(document).on('pageshow', '#ingredientsPage, .secondLevel, .searchableIngredient', function() {
 	if(sessionStorage['totalCount']==0 || sessionStorage['totalCount']==undefined) {
 		return ;
 	} else {
