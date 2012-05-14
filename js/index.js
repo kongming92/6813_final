@@ -67,13 +67,13 @@ $(document).on('pageinit', '#namePage', function() {
 			  left: 'auto' // Left position relative to parent in px
 		};
 		var target = document.getElementById('searchResults');
-		var spinner = new Spinner(opts).spin(target);
 		var searchString = $("#drinkName").val();
 		var searchURL = "php/searchByName.php";
 		if ($.trim(searchString) == "") {
 			return;
 		}
-				
+		var spinner = new Spinner(opts).spin(target);
+	
 		$.post(
 			searchURL,
 			{ param : searchString },
